@@ -1,2 +1,4 @@
-package Controllers;public class AjouterPersonneController {
+package Controllers;
+
+public class AjouterPersonneController {
 }

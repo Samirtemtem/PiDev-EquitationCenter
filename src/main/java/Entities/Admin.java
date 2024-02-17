@@ -9,7 +9,14 @@ public class Admin {
     private String password;
     private String name;
 
-    public Admin() {
+    public Admin()
+    {
+
+    }
+    public Admin(String email, String password, String name) {
+        this.email=email;
+        this.password=password;
+        this.name=name;
     }
 
     public int getId() {
@@ -43,4 +50,5 @@ public class Admin {
     public void setName(String name) {
         this.name = name;
     }
+
 }
