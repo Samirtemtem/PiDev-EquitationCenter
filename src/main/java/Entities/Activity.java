@@ -14,6 +14,23 @@ public class Activity {
     public Activity() {
     }
 
+    public Activity(int id, Date date, String typeActivity, String title, String description, double price) {
+        this.id = id;
+        this.date = date;
+        this.typeActivity = typeActivity;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
+
+    public Activity(Date date, String typeActivity, String title, String description, double price) {
+        this.date = date;
+        this.typeActivity = typeActivity;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
+
     public int getId() {
         return id;
     }

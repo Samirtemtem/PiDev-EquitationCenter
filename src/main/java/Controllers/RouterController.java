@@ -44,4 +44,36 @@ public class RouterController {
                 e.printStackTrace();
             }
     }
+    public static void navigate(String fxmlPath, Integer activityId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
+            AnchorPane root = loader.load();
+
+            // Access the controller
+            modifyActivityPopup controller = loader.getController();
+
+            // If activityId is not null, initialize the controller with the activity ID
+            if (activityId != null) {
+                controller.init(activityId);
+            }
+
+
+            FadeTransition fadeOut = new FadeTransition(TRANSITION_DURATION, primaryStage.getScene().getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(event -> {
+                primaryStage.setScene(new Scene(root));
+                // Fade in animation
+                FadeTransition fadeIn = new FadeTransition(TRANSITION_DURATION, root);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+            fadeOut.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

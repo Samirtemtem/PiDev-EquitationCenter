@@ -55,6 +55,7 @@ public class ServiceActivity implements IService<Activity> {
         String query = "SELECT * FROM activity WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
+            System.out.println(id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return createActivityFromResultSet(rs);

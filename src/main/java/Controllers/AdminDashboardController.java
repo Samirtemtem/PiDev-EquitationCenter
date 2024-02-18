@@ -19,6 +19,8 @@ public class AdminDashboardController {
     }
 
     public void goToNavigate(ActionEvent actionEvent) {
+        RouterController router=new RouterController();
+        router.navigate("/fxml/AdminDashboard.fxml");
     }
 
     public void goToUsers(MouseEvent mouseEvent) {

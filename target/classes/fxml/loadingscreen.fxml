@@ -10,7 +10,6 @@
     <children>
         <ProgressBar fx:id="progressBar" layoutX="405.0" layoutY="513.0" prefWidth="200" style="-fx-accent: maroon;" />
         <ImageView fx:id="logoImageView" fitHeight="434.0" fitWidth="589.0" layoutX="210.0" layoutY="44.0" opacity="0">
-            <!-- Set the image source for your logo -->
             <image>
                 <Image url="@../assets/logo.png" />
             </image>
