@@ -45,25 +45,19 @@ public class ActivitiesCrudController {
 
     @FXML
     public void initialize() {
-        // Initialize table columns
         initializeTableColumns();
         updateActivityList();
-        // Call method to retrieve and display activities
     }
     public void updateActivityList() {
         try {
-            // Retrieve all activities from the service
             List<Activity> activities = serviceActivity.ReadAll();
 
-            // Clear existing items in the TableView
             tableView.getItems().clear();
 
-            // Add retrieved activities to the TableView
             tableView.getItems().addAll(activities);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle database errors
         }
     }
 
@@ -92,7 +86,6 @@ public class ActivitiesCrudController {
         TableColumn<Activity, Void> actionColumn = new TableColumn<>("Action");
         actionColumn.setCellFactory(getButtonCellFactory());
 
-        // Add columns to TableView
         tableView.getColumns().addAll(idColumn, dateColumn, typeColumn, titleColumn, priceColumn, descriptionColumn, actionColumn);
     }
 
@@ -112,7 +105,6 @@ public class ActivitiesCrudController {
                         modifyIcon.setFitHeight(20);
                         modifyButton.setGraphic(modifyIcon);
 
-                        // Optionally remove focus border:
                         modifyButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 5px; -fx-padding: 5px 10px;");
                         deleteButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 5px; -fx-padding: 5px 10px;");
 
@@ -125,12 +117,10 @@ public class ActivitiesCrudController {
                         // Set button actions
                         modifyButton.setOnAction((ActionEvent event) -> {
                             Activity activity = getTableView().getItems().get(getIndex());
-                            // Handle modify action here
                         });
 
                         deleteButton.setOnAction((ActionEvent event) -> {
                             Activity activity = getTableView().getItems().get(getIndex());
-                            // Handle delete action here
                         });
                     }
 
@@ -149,7 +139,6 @@ public class ActivitiesCrudController {
                             modifyButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 5px; -fx-padding: 5px 10px;");
                             deleteButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 5px; -fx-padding: 5px 10px;");
 
-                            // Set button icons
                             Image modifyImage = new Image(getClass().getResourceAsStream("../assets/modify.png"));
                             ImageView modifyIcon = new ImageView(modifyImage);
                             modifyIcon.setFitWidth(20);
@@ -161,19 +150,14 @@ public class ActivitiesCrudController {
                             deleteIcon.setFitHeight(20);
                             deleteButton.setGraphic(deleteIcon);
                             modifyButton.setOnAction((ActionEvent event) -> {
-                                // Load the modifyActivity.fxml file
-                                // Access the activity from the table view
                                 Activity activity = getTableView().getItems().get(getIndex());
                                 System.out.println("activity ID from controller:"+activity.getId());
-                                // Set the ID in the controller
                                 if (activity != null) {
                                     System.out.println("SETTING ID");
                                     RouterController.navigate("/fxml/modifyActivityPopup.fxml", activity.getId());
 
-                                    // Close the current window if needed
                                 } else {
                                     System.err.println("No activity selected.");
-                                    // Handle the case where no activity is selected
                                 }
 
                             });

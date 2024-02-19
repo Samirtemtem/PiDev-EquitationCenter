@@ -44,7 +44,7 @@ public class RouterController {
                 e.printStackTrace();
             }
     }
-    public static void navigate(String fxmlPath, Integer activityId) {
+    public static void navigate(String fxmlPath, Integer Id) {
         try {
             FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
             AnchorPane root = loader.load();
@@ -53,8 +53,8 @@ public class RouterController {
             modifyActivityPopup controller = loader.getController();
 
             // If activityId is not null, initialize the controller with the activity ID
-            if (activityId != null) {
-                controller.init(activityId);
+            if (Id != null) {
+                controller.init(Id);
             }
 
 

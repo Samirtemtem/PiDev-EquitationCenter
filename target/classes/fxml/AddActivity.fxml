@@ -16,7 +16,7 @@
     <children>
         <Pane layoutX="88.0" layoutY="14.0" prefHeight="578.0" prefWidth="812.0" style="-fx-background-radius: 15; -fx-background-color: white;">
             <children>
-                <Label layoutX="283.0" layoutY="70.0" text="Ajouter une nouvelle activité">
+                <Label layoutX="221.0" layoutY="78.0" text="Ajouter une nouvelle activité">
                     <font>
                         <Font name="System Bold" size="30.0" />
                     </font>

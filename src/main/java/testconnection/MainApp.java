@@ -16,21 +16,22 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         RouterController.setPrimaryStage(primaryStage);
+
         Parent root = FXMLLoader.load(getClass().getResource("../fxml/loadingScreen.fxml"));
+        Image icon = new Image(getClass().getResourceAsStream("../assets/logo.png"));
+        primaryStage.getIcons().add(icon);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
       /*  FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/loadingscreen.fxml"));
-        Image icon = new Image(getClass().getResourceAsStream("../assets/logo.png"));
+        Image icon = new Image(getClass ().getResourceAsStream("../assets/logo.png"));
         primaryStage.getIcons().add(icon);
 
         Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Get the LoadingscreenController instance
         LoadingscreenController controller = loader.getController();
 
-        // Call the method to play the logo animation
         controller.initialize();
 
        */

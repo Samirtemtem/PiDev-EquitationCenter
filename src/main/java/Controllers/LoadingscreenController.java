@@ -59,12 +59,11 @@ public class LoadingscreenController {
             Duration delay = Duration.seconds(duration.toSeconds() * progress);
             KeyFrame keyFrame = new KeyFrame(delay, e -> {
                 progressBar.setProgress(progress);
-                progressLabel.setText(String.format("%.0f%%", progress * 100)); // Update progress label
+                progressLabel.setText(String.format("%.0f%%", progress * 100));
             });
             timeline.getKeyFrames().add(keyFrame);
         }
 
-        // Add the final key frame to ensure the progress reaches 100%
         KeyFrame finalKeyFrame = new KeyFrame(duration, e -> {
             progressBar.setProgress(1.0);
             progressLabel.setText("100%"); // Update progress label to show completion

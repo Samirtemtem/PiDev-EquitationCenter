@@ -2,74 +2,78 @@ package Entities;
 
 import java.util.*;
 
-/**
- * 
- */
 public class ProductOrder {
 
+	private int id;
+	private Float price;
+	private int qty;
+	private String status;
+	private Float totalPrice;
+	private Product product;
 
-
-	/**
-	 * 
-	 */
-	public int Id;
-
-	/**
-	 * 
-	 */
-	public Float Price;
-
-	/**
-	 * 
-	 */
-	public int Qty;
-
-	/**
-	 * 
-	 */
-	public String Status;
-
-	public ProductOrder(int id, Float price, int qty, String status) {
-		Id = id;
-		Price = price;
-		Qty = qty;
-		Status = status;
+	public ProductOrder(int id, Float price, int qty, String status, Product product) {
+		this.id = id;
+		this.price = price;
+		this.qty = qty;
+		this.status = status;
+		this.product = product;
+		this.totalPrice = calculateTotalPrice();
 	}
-	public ProductOrder(Float price, int qty, String status) {
-		Price = price;
-		Qty = qty;
-		Status = status;
+	public ProductOrder(Float price, int qty, String status, Product product) {
+		this.price = price;
+		this.qty = qty;
+		this.status = status;
+		this.product = product;
+		this.totalPrice = calculateTotalPrice();
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public Float getPrice() {
-		return Price;
+		return price;
 	}
 
 	public void setPrice(Float price) {
-		Price = price;
+		this.price = price;
+		this.totalPrice = calculateTotalPrice();
 	}
 
 	public int getQty() {
-		return Qty;
+		return qty;
 	}
 
 	public void setQty(int qty) {
-		Qty = qty;
+		this.qty = qty;
+		this.totalPrice = calculateTotalPrice();
 	}
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
+	}
+
+	public Float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	private Float calculateTotalPrice() {
+		return price * qty;
 	}
 }

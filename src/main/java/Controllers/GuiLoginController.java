@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Entities.User;
 import Service.*;
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +31,7 @@ import Entities.Admin;
  * @author medmo
  */
 public class GuiLoginController implements Initializable {
-    public static Admin user = new Admin();
+    public static User user = new User();
 
     @FXML
     private ImageView btnReturn;
@@ -50,12 +51,10 @@ public class GuiLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         btnLogin.setOnMouseEntered(event -> {
             btnLogin.setEffect(new DropShadow());
         });
 
-        // Remove drop shadow effect when mouse exits the button
         btnLogin.setOnMouseExited(event -> {
             btnLogin.setEffect(null);
         });
@@ -75,12 +74,12 @@ public class GuiLoginController implements Initializable {
 
     @FXML
     private void login(ActionEvent event) throws SQLException {
-        ServiceAdmin su = new ServiceAdmin();
+        ServiceUser su = new ServiceUser();
 
         String email = emailInput.getText();
         String password = passwordInput.getText();
 
-        user = su.Login(email, password);
+        user = su.login(email, password, User.Role.valueOf("ADMIN"));
         if (user == null){
             erreur.setText("Email ou mot de passe incorrecte");
         }

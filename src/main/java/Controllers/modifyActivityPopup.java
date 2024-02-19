@@ -18,11 +18,9 @@ public class modifyActivityPopup implements Initializable {
 
     private int activityId;
 
-    // Method to receive the ID
     public void setActivityId(int activityId) {
 
         this.activityId = activityId;
-        // You can use this ID to perform further actions in your controller
     }
 
     @FXML
@@ -77,7 +75,6 @@ public class modifyActivityPopup implements Initializable {
                 Date.setValue(LocalDate.parse(activity.getDate().toString()));
                 prenomTextField1.setText(String.valueOf(activity.getId()));
             } else {
-                // Handle if activity is not found
                 System.out.println("Activity non trouvée.");
             }
         } catch (SQLException e) {
@@ -95,9 +92,7 @@ public class modifyActivityPopup implements Initializable {
             double price = Double.parseDouble(Price.getText());
             Date date = java.sql.Date.valueOf(Date.getValue());
             int id = Integer.parseInt(prenomTextField1.getText());
-
             serviceActivity.update(new Activity(id, date, type, title, description, price));
-
             showSuccessMessage("Activité Modifiée avec succées");
 
         } catch (SQLException e) {
