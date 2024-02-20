@@ -3,6 +3,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -23,6 +24,11 @@ public class RouterController {
     // Load and display an FXML file in the primary stage
     public static void navigate(String fxmlPath) {
             try {
+                System.out.println("Path: "+fxmlPath);
+
+                Image icon = new Image(RouterController.class.getResourceAsStream("../assets/logo.png"));
+                primaryStage.getIcons().add(icon);
+
                 FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
                 AnchorPane root = loader.load();
 
@@ -46,6 +52,11 @@ public class RouterController {
     }
     public static void navigate(String fxmlPath, Integer Id) {
         try {
+            System.out.println("Second navigate Path: "+fxmlPath);
+
+            Image icon = new Image(RouterController.class.getResourceAsStream("../assets/logo.png"));
+            primaryStage.getIcons().add(icon);
+
             FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
             AnchorPane root = loader.load();
 

@@ -1,33 +1,40 @@
 package Controllers;
 
 import Entities.Activity;
+import Entities.ActivityType;
 import Service.ServiceActivity;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
+
 
 public class modifyActivityPopup implements Initializable {
 
     private int activityId;
 
     public void setActivityId(int activityId) {
-
         this.activityId = activityId;
     }
 
     @FXML
     private TextField Title;
-
     @FXML
-    private TextField Type;
+    private ComboBox<ActivityType> Type;
 
     @FXML
     private TextField Price;
@@ -41,23 +48,26 @@ public class modifyActivityPopup implements Initializable {
     @FXML
     private TextField prenomTextField1;
 
+    private byte[] imageData; // Store the image data
+
     private ServiceActivity serviceActivity = new ServiceActivity();
+
+    @FXML
+    private ImageView imageView;
+    @FXML
+    private ImageView btnReturn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            System.out.println("Activity ID from activity POPUP:"+this.activityId);
-            Activity activity = serviceActivity.findById(activityId);
-            if (activity != null) {
-                Title.setText(activity.getTitle());
-                Description.setText(activity.getDescription());
-                Date.setValue(LocalDate.parse(activity.getDate().toLocaleString()));
-                prenomTextField1.setText(String.valueOf(activity.getId()));
-            } else {
+        Type.getItems().addAll(ActivityType.values());
+        loadData();
+        btnReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Returning to Activities CRUD");
+                RouterController.navigate("/fxml/ActivitiesCRUD.fxml");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void init(int activityId) {
@@ -68,62 +78,76 @@ public class modifyActivityPopup implements Initializable {
     private void loadData() {
         try {
             Activity activity = serviceActivity.findById(activityId);
-            if (activity != null) {Title.setText(activity.getTitle());
-                Type.setText(activity.getTypeActivity());
+            if (activity != null) {
+                Title.setText(activity.getTitle());
+                Type.setValue(ActivityType.valueOf(activity.getTypeActivity().name()));
                 Description.setText(activity.getDescription());
                 Price.setText(String.valueOf(activity.getPrice()));
+                java.util.Date date = activity.getDate();
                 Date.setValue(LocalDate.parse(activity.getDate().toString()));
-                prenomTextField1.setText(String.valueOf(activity.getId()));
+
+
+                imageData = activity.getImageData(); // Load image data
+                if (imageData != null && imageData.length > 0) {
+                    imageView.setImage(new javafx.scene.image.Image(new ByteArrayInputStream(activity.getImageData())));
+                }
             } else {
-                System.out.println("Activity non trouvée.");
+                System.out.println("Activity not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Erreur");
+            System.out.println("Error");
         }
     }
 
     @FXML
-    void modifierUtilisateur(ActionEvent event) {
+    void ModifyActivity(ActionEvent event) {
         try {
             String title = Title.getText();
-            String type = Type.getText();
+            ActivityType type = Type.getValue();
             String description = Description.getText();
             double price = Double.parseDouble(Price.getText());
-            Date date = java.sql.Date.valueOf(Date.getValue());
-            int id = Integer.parseInt(prenomTextField1.getText());
-            serviceActivity.update(new Activity(id, date, type, title, description, price));
-            showSuccessMessage("Activité Modifiée avec succées");
+            java.util.Date utilDate = java.sql.Date.valueOf(Date.getValue());
+
+            // Update the activity
+            Activity updatedActivity = new Activity(this.activityId, utilDate, type, title, description, price, imageData);
+            serviceActivity.update(updatedActivity);
+            showSuccessMessage("Votre activité a été modifiée avec succées");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    @FXML
+    void uploadImage(MouseEvent  event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selectionnez une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
 
+        if (file != null) {
+            try {
+                imageData = new byte[(int) file.length()];
+                FileInputStream fis = new FileInputStream(file);
+                fis.read(imageData);
+                fis.close();
+                // Display the selected image
+                imageView.setImage(new javafx.scene.image.Image(new ByteArrayInputStream(imageData)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void showSuccessMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
         alert.setHeaderText("Message");
         alert.setContentText(message);
-        ButtonType okayButton = new ButtonType("OK");
-        alert.getButtonTypes().setAll(okayButton);
-        alert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == okayButton) {
-                try {
-                    RouterController router = new RouterController();
-                    router.navigate("/fxml/ActivitiesCRUD.fxml");
-                    System.out.println("Button Clicked");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        alert.showAndWait();
     }
-    public void returnTo(MouseEvent mouseEvent) {
-        System.out.println("RETURN TO EXECUTED");
-        RouterController router;
-        router = new RouterController();
-        router.navigate("/fxml/ActivitiesCRUD.fxml");
-    }
+
+
 }

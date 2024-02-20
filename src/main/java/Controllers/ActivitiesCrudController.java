@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,7 +43,10 @@ public class ActivitiesCrudController {
     private TableView<Activity> tableView; // Assuming you've set this ID in your FXML file
 
     private final ServiceActivity serviceActivity = new ServiceActivity();
+    @FXML
+    private ImageView imageView;
 
+    private byte[] imageData;
     @FXML
     public void initialize() {
         initializeTableColumns();
@@ -85,11 +89,45 @@ public class ActivitiesCrudController {
 
         TableColumn<Activity, Void> actionColumn = new TableColumn<>("Action");
         actionColumn.setCellFactory(getButtonCellFactory());
-
-        tableView.getColumns().addAll(idColumn, dateColumn, typeColumn, titleColumn, priceColumn, descriptionColumn, actionColumn);
+        TableColumn<Activity, Void> imageColumn = new TableColumn<>("Image");
+        imageColumn.setCellFactory(getImageCellFactory());
+          tableView.getColumns().addAll(idColumn, dateColumn, typeColumn, titleColumn, priceColumn, descriptionColumn, actionColumn,imageColumn);
     }
 
+    private Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>> getImageCellFactory() {
+        return new Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>>() {
+            @Override
+            public TableCell<Activity, Void> call(TableColumn<Activity, Void> param) {
+                return new TableCell<Activity, Void>() {
+                    private final ImageView imageView = new ImageView();
 
+                    {
+                        imageView.setFitWidth(100);
+                        imageView.setFitHeight(100);
+                        setGraphic(imageView);
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Activity activity = getTableView().getItems().get(getIndex());
+
+                            if (activity != null && activity.getImageData() != null) {
+                                Image image = new Image(new ByteArrayInputStream(activity.getImageData()));
+                                imageView.setImage(image);
+
+                            } else {
+                                imageView.setImage(null);
+                            }
+                        }
+                    }
+                };
+            }
+        };
+    }
     private Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>> getButtonCellFactory() {
         return new Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>>() {
             @Override
@@ -151,7 +189,6 @@ public class ActivitiesCrudController {
                             deleteButton.setGraphic(deleteIcon);
                             modifyButton.setOnAction((ActionEvent event) -> {
                                 Activity activity = getTableView().getItems().get(getIndex());
-                                System.out.println("activity ID from controller:"+activity.getId());
                                 if (activity != null) {
                                     System.out.println("SETTING ID");
                                     RouterController.navigate("/fxml/modifyActivityPopup.fxml", activity.getId());

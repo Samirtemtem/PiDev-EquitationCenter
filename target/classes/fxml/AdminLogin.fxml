@@ -44,7 +44,7 @@
                 </Button>
                 <ImageView fitHeight="105.0" fitWidth="166.0" layoutX="138.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../resources/logo.png" />
+                        <Image url="@../assets/logo.png" />
                     </image>
                 </ImageView>
                 <TextField fx:id="emailInput" layoutX="65.0" layoutY="243.0" prefHeight="60.0" prefWidth="295.0" promptText="Email" style="-fx-background-radius: 7;">

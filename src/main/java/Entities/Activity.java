@@ -1,34 +1,51 @@
 package Entities;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Activity {
 
     private int id;
     private Date date;
-    private String typeActivity;
+    private ActivityType typeActivity;
     private String title;
     private String description;
     private double price;
+    private byte[] imageData; // Store image data as byte array
 
     public Activity() {
     }
 
-    public Activity(int id, Date date, String typeActivity, String title, String description, double price) {
+    public Activity(int id, Date date, ActivityType typeActivity, String title, String description, double price, byte[] imageData) {
         this.id = id;
         this.date = date;
         this.typeActivity = typeActivity;
         this.title = title;
         this.description = description;
         this.price = price;
+        this.imageData = imageData;
     }
 
-    public Activity(Date date, String typeActivity, String title, String description, double price) {
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", date=" + date +
+                ", typeActivity='" + typeActivity + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", imageData=" + Arrays.toString(imageData) +
+                '}';
+    }
+
+    public Activity(Date date, ActivityType typeActivity, String title, String description, double price, byte[] imageData) {
         this.date = date;
         this.typeActivity = typeActivity;
         this.title = title;
         this.description = description;
         this.price = price;
+        this.imageData = imageData;
     }
 
     public int getId() {
@@ -47,14 +64,14 @@ public class Activity {
         this.date = date;
     }
 
-    public String getTypeActivity() {
+
+    public ActivityType getTypeActivity() {
         return typeActivity;
     }
 
-    public void setTypeActivity(String typeActivity) {
+    public void setTypeActivity(ActivityType typeActivity) {
         this.typeActivity = typeActivity;
     }
-
     public String getTitle() {
         return title;
     }
@@ -77,5 +94,13 @@ public class Activity {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
     }
 }

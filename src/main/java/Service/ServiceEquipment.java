@@ -15,30 +15,28 @@ public class ServiceEquipment implements IService<Equipment> {
 
     @Override
     public void add(Equipment equipment) throws SQLException {
-        String query = "INSERT INTO equipment (id, name, type, description, quantity, purchaseDate, equipmentCondition) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO equipment (id, name, type, description, purchaseDate, equipmentCondition) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, equipment.getId());
             stmt.setString(2, equipment.getName());
             stmt.setString(3, equipment.getType());
             stmt.setString(4, equipment.getDescription());
-            stmt.setInt(5, equipment.getQuantity());
-            stmt.setDate(6, new java.sql.Date(equipment.getPurchaseDate().getTime()));
-            stmt.setString(7, equipment.getEquipmentCondition());
+            stmt.setDate(5, new java.sql.Date(equipment.getPurchaseDate().getTime()));
+            stmt.setString(6, equipment.getEquipmentCondition());
             stmt.executeUpdate();
         }
     }
 
     @Override
     public void update(Equipment equipment) throws SQLException {
-        String query = "UPDATE equipment SET name = ?, type = ?, description = ?, quantity = ?, purchaseDate = ?, equipmentCondition = ? WHERE id = ?";
+        String query = "UPDATE equipment SET name = ?, type = ?, description = ?, purchaseDate = ?, equipmentCondition = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, equipment.getName());
             stmt.setString(2, equipment.getType());
             stmt.setString(3, equipment.getDescription());
-            stmt.setInt(4, equipment.getQuantity());
-            stmt.setDate(5, new java.sql.Date(equipment.getPurchaseDate().getTime()));
-            stmt.setString(6, equipment.getEquipmentCondition());
-            stmt.setInt(7, equipment.getId());
+            stmt.setDate(4, new java.sql.Date(equipment.getPurchaseDate().getTime()));
+            stmt.setString(5, equipment.getEquipmentCondition());
+            stmt.setInt(6, equipment.getId());
             stmt.executeUpdate();
         }
     }
@@ -87,7 +85,6 @@ public class ServiceEquipment implements IService<Equipment> {
         equipment.setName(rs.getString("name"));
         equipment.setType(rs.getString("type"));
         equipment.setDescription(rs.getString("description"));
-        equipment.setQuantity(rs.getInt("quantity"));
         equipment.setPurchaseDate(rs.getDate("purchaseDate"));
         equipment.setEquipmentCondition(rs.getString("equipmentCondition"));
         return equipment;

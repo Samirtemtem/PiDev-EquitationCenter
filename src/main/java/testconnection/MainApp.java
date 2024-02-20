@@ -17,26 +17,17 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         RouterController.setPrimaryStage(primaryStage);
 
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/loadingScreen.fxml"));
+        // Set the initial scene for the primary stage
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ActivitiesCRUD.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+
         Image icon = new Image(getClass().getResourceAsStream("../assets/logo.png"));
         primaryStage.getIcons().add(icon);
-        primaryStage.setScene(new Scene(root));
+
         primaryStage.show();
-      /*  FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/loadingscreen.fxml"));
-        Image icon = new Image(getClass ().getResourceAsStream("../assets/logo.png"));
-        primaryStage.getIcons().add(icon);
-
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        LoadingscreenController controller = loader.getController();
-
-        controller.initialize();
-
-       */
     }
-
     public static void main(String[] args) {
         launch(args);
     }

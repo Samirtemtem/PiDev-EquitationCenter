@@ -7,26 +7,23 @@ public class Equipment {
         private String name;
         private String type;
         private String description;
-        private int quantity;
         private Date purchaseDate;
         private String equipmentCondition;
 
-        public Equipment(int id, String name, String type, String description, int quantity, Date purchaseDate, String equipmentCondition) {
+        public Equipment(int id, String name, String type, String description, Date purchaseDate, String equipmentCondition) {
             this.id = id;
             this.name = name;
             this.type = type;
             this.description = description;
-            this.quantity = quantity;
             this.purchaseDate = purchaseDate;
             this.equipmentCondition = equipmentCondition;
         }
 
 
-    public Equipment(String name, String type, String description, int quantity, Date purchaseDate, String equipmentCondition) {
+    public Equipment(String name, String type, String description, Date purchaseDate, String equipmentCondition) {
         this.name = name;
         this.type = type;
         this.description = description;
-        this.quantity = quantity;
         this.purchaseDate = purchaseDate;
         this.equipmentCondition = equipmentCondition;
     }
@@ -67,13 +64,6 @@ public class Equipment {
         this.description = description;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public Date getPurchaseDate() {
         return purchaseDate;

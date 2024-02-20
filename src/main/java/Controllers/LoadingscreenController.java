@@ -21,6 +21,7 @@ public class LoadingscreenController {
     private ImageView logoImageView;
     @FXML
     private Label progressLabel;
+
     @FXML
     private AnchorPane bord;
     @FXML
