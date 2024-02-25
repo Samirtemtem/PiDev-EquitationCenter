@@ -110,7 +110,7 @@
         </Pane>
         <ImageView fx:id="btnReturn" fitHeight="44.0" fitWidth="48.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../assets/return.png" />
+                <Image url="@../../assets/return.png" />
             </image>
         </ImageView>
     </children>

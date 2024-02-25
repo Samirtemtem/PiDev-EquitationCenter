@@ -5,16 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.effect.DropShadow?>
 <AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="970.0" style="-fx-background-color: #fbf3e4;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GuiLoginController">
     <stylesheets>
-        <URL value="@guilogin.css" />
+        <URL value="@../guilogin.css" />
     </stylesheets>
     <children>
         <Pane layoutX="263.0" layoutY="11.0" prefHeight="566.0" prefWidth="424.0" style="-fx-background-radius: 15; -fx-background-color: white;">
@@ -22,7 +22,7 @@
                 <ImageView fx:id="logoImageView" fitHeight="434.0" fitWidth="589.0" layoutX="210.0" layoutY="44.0" opacity="0">
                     <!-- Set the image source for your logo -->
                     <image>
-                        <Image url="@../assets/logo.png" />
+                        <Image url="@../../assets/logo.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="93.0" layoutY="165.0" text="Connecter à votre compte">
@@ -39,14 +39,9 @@
                         <DropShadow />
                     </effect>
                     <stylesheets>
-                        <URL value="@guilogin.css" />
+                        <URL value="@../guilogin.css" />
                     </stylesheets>
                 </Button>
-                <ImageView fitHeight="105.0" fitWidth="166.0" layoutX="138.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../assets/logo.png" />
-                    </image>
-                </ImageView>
                 <TextField fx:id="emailInput" layoutX="65.0" layoutY="243.0" prefHeight="60.0" prefWidth="295.0" promptText="Email" style="-fx-background-radius: 7;">
                     <font>
                         <Font size="21.0" />
@@ -67,9 +62,9 @@
                         <Font size="21.0" />
                     </font>
                 </PasswordField>
-              <ImageView fx:id="btnReturn" fitHeight="138.0" fitWidth="148.0" layoutX="135.0" layoutY="14.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="btnReturn" fitHeight="138.0" fitWidth="148.0" layoutX="141.0" layoutY="14.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">
                   <image>
-                      <Image url="@../assets/logo.png" />
+                      <Image url="@../../assets/logo.png" />
                   </image>
               </ImageView>
             </children>

@@ -42,9 +42,9 @@ public class LoadingscreenController {
     }
 
     private void fillProgressBar() {
-        int numSteps = 10; // Number of steps to fill the progress bar linearly
-        Duration duration = Duration.seconds(4); // Total duration for filling the progress bar
-        double stepValue = 1.0 / numSteps; // Value to increment progress bar per step
+        int numSteps = 10;
+        Duration duration = Duration.seconds(5);
+        double stepValue = 1.0 / numSteps;
 
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), bord);
         fadeTransition.setFromValue(1.0);
@@ -52,7 +52,6 @@ public class LoadingscreenController {
 
         Timeline timeline = new Timeline();
 
-        // Start from 0% progress
         progressBar.setProgress(0.0);
 
         for (int i = 0; i <= numSteps; i++) {
@@ -67,8 +66,8 @@ public class LoadingscreenController {
 
         KeyFrame finalKeyFrame = new KeyFrame(duration, e -> {
             progressBar.setProgress(1.0);
-            progressLabel.setText("100%"); // Update progress label to show completion
-            loadAdminLoginScene(); // Transition to AdminLogin.fxml
+            progressLabel.setText("100%");
+            loadAdminLoginScene();
         });
         timeline.getKeyFrames().add(finalKeyFrame);
 
@@ -78,6 +77,6 @@ public class LoadingscreenController {
 
     private void loadAdminLoginScene() {
         RouterController Routes = new RouterController();
-        Routes.navigate("../fxml/AdminLogin.fxml");
+        Routes.navigate("../fxml/Login/AdminLogin.fxml");
     }
 }

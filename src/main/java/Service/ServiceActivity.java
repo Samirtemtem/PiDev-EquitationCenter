@@ -76,7 +76,6 @@ public class ServiceActivity implements IService<Activity> {
 
                 Activity activity = createActivityFromResultSet(rs);
                 activities.add(activity);
-                System.out.println(activity.toString());
 
             }
         }
@@ -137,4 +136,21 @@ public class ServiceActivity implements IService<Activity> {
             conn.close();
         }
     }
-}
+        public List<Activity> searchActivities(String query) throws SQLException {
+            List<Activity> searchResult = new ArrayList<>();
+            String searchQuery = "SELECT * FROM activity WHERE Title LIKE ? OR Description LIKE ?";
+            try (PreparedStatement stmt = conn.prepareStatement(searchQuery)) {
+                String searchParam = "%" + query + "%";
+                stmt.setString(1, searchParam);
+                stmt.setString(2, searchParam);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Activity activity = createActivityFromResultSet(rs);
+                        searchResult.add(activity);
+                    }
+                }
+            }
+            return searchResult;
+        }
+
+    }

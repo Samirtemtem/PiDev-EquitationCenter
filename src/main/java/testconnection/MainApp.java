@@ -17,14 +17,14 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         RouterController.setPrimaryStage(primaryStage);
 
-        // Set the initial scene for the primary stage
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/ActivitiesCRUD.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/loadingScreen.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
         Image icon = new Image(getClass().getResourceAsStream("../assets/logo.png"));
         primaryStage.getIcons().add(icon);
+        primaryStage.setTitle("Pégase");
 
         primaryStage.show();
     }

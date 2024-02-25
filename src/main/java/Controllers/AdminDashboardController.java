@@ -10,36 +10,28 @@ public class AdminDashboardController {
     private Label adminNameLabel;
 
     public void initialize() {
-        // Set the admin name in the label
         GuiLoginController guilogin = new GuiLoginController();
         String name="Bienvenue "+guilogin.user.getName()+"!";
         adminNameLabel.setText(name);
     }
     public void goToLogn(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/Login/AdminLogin.fxml");
     }
 
     public void goToNavigate(ActionEvent actionEvent) {
-        RouterController router=new RouterController();
-        router.navigate("/fxml/AdminDashboard.fxml");
+        RouterController.navigate("/fxml/Admin/AdminDashboard.fxml");
     }
 
     public void goToUsers(MouseEvent mouseEvent) {
     }
 
     public void goToActivities(MouseEvent mouseEvent) {
-        RouterController router=new RouterController();
-        router.navigate("/fxml/ActivitiesCRUD.fxml");
+        RouterController.navigate("../fxml/Activities/ActivitiesCRUD.fxml");
     }
 
-    public void goToCommands(MouseEvent mouseEvent) {
-    }
 
-    public void goToReclamations(MouseEvent mouseEvent) {
-    }
 
-    public void goToEvent(MouseEvent mouseEvent) {
-    }
-
-    public void goToLivraisons(MouseEvent mouseEvent) {
+    public void GoToActivitySessions(MouseEvent mouseEvent) {
+        RouterController.navigate("../fxml/ActivitySession/ActivitySessionCRUD.fxml");
     }
 }

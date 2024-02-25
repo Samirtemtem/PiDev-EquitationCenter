@@ -16,12 +16,10 @@ public class RouterController {
     private static final Duration TRANSITION_DURATION = Duration.seconds(1.0);
 
 
-    // Set the primary stage for the application
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
 
-    // Load and display an FXML file in the primary stage
     public static void navigate(String fxmlPath) {
             try {
                 System.out.println("Path: "+fxmlPath);
@@ -32,13 +30,11 @@ public class RouterController {
                 FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
                 AnchorPane root = loader.load();
 
-                // Fade out animation
                 FadeTransition fadeOut = new FadeTransition(TRANSITION_DURATION, primaryStage.getScene().getRoot());
                 fadeOut.setFromValue(1.0);
                 fadeOut.setToValue(0.0);
                 fadeOut.setOnFinished(event -> {
                     primaryStage.setScene(new Scene(root));
-                    // Fade in animation
                     FadeTransition fadeIn = new FadeTransition(TRANSITION_DURATION, root);
                     fadeIn.setFromValue(0.0);
                     fadeIn.setToValue(1.0);
@@ -60,10 +56,8 @@ public class RouterController {
             FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(fxmlPath));
             AnchorPane root = loader.load();
 
-            // Access the controller
             modifyActivityPopup controller = loader.getController();
 
-            // If activityId is not null, initialize the controller with the activity ID
             if (Id != null) {
                 controller.init(Id);
             }
@@ -74,7 +68,6 @@ public class RouterController {
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
                 primaryStage.setScene(new Scene(root));
-                // Fade in animation
                 FadeTransition fadeIn = new FadeTransition(TRANSITION_DURATION, root);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);

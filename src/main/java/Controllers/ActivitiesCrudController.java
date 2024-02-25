@@ -2,37 +2,25 @@ package Controllers;
 
 import Entities.Activity;
 import Service.ServiceActivity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import javafx.fxml.FXML;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Callback;
 
-import java.util.List;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.Callback;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
@@ -40,13 +28,19 @@ import java.util.Optional;
 public class ActivitiesCrudController {
 
     @FXML
-    private TableView<Activity> tableView; // Assuming you've set this ID in your FXML file
+    private Label adminNameLabel;
+
+    @FXML
+    private TableView<Activity> tableView;
 
     private final ServiceActivity serviceActivity = new ServiceActivity();
     @FXML
     private ImageView imageView;
 
     private byte[] imageData;
+    @FXML
+    private TextField search_tv;
+
     @FXML
     public void initialize() {
         initializeTableColumns();
@@ -67,6 +61,9 @@ public class ActivitiesCrudController {
 
 
     private void initializeTableColumns() {
+        GuiLoginController guilogin = new GuiLoginController();
+        String name="Bienvenue "+guilogin.user.getName()+"!";
+        adminNameLabel.setText(name);
         tableView.getColumns().clear();
 
         TableColumn<Activity, Integer> idColumn = new TableColumn<>("Id");
@@ -128,6 +125,7 @@ public class ActivitiesCrudController {
             }
         };
     }
+
     private Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>> getButtonCellFactory() {
         return new Callback<TableColumn<Activity, Void>, TableCell<Activity, Void>>() {
             @Override
@@ -152,7 +150,6 @@ public class ActivitiesCrudController {
                         deleteIcon.setFitHeight(16);
                         deleteButton.setGraphic(deleteIcon);
 
-                        // Set button actions
                         modifyButton.setOnAction((ActionEvent event) -> {
                             Activity activity = getTableView().getItems().get(getIndex());
                         });
@@ -169,7 +166,7 @@ public class ActivitiesCrudController {
                             setGraphic(null);
                         } else {
                             HBox buttons = new HBox(5);
-                            buttons.getChildren().addAll(modifyButton, deleteButton); // Add buttons to HBox
+                            buttons.getChildren().addAll(modifyButton, deleteButton);
 
                             modifyButton.setFocusTraversable(false);
                             deleteButton.setFocusTraversable(false);
@@ -191,10 +188,8 @@ public class ActivitiesCrudController {
                                 Activity activity = getTableView().getItems().get(getIndex());
                                 if (activity != null) {
                                     System.out.println("SETTING ID");
-                                    RouterController.navigate("/fxml/modifyActivityPopup.fxml", activity.getId());
+                                    RouterController.navigate("/fxml/Activities/modifyActivityPopup.fxml", activity.getId());
 
-                                } else {
-                                    System.err.println("No activity selected.");
                                 }
 
                             });
@@ -205,7 +200,7 @@ public class ActivitiesCrudController {
 
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setTitle("Confirmation");
-                                alert.setHeaderText("Delete Activity");
+                                alert.setHeaderText("Supprimer Activité");
                                 alert.setContentText("Vous etes sur tu veux supprimer cette activité?");
 
                                 Optional<ButtonType> result = alert.showAndWait();
@@ -233,20 +228,36 @@ public class ActivitiesCrudController {
             }
         };
     }
-            public void searchquery(KeyEvent keyEvent) {
+    private ObservableList<Activity> activitiesList = FXCollections.observableArrayList();
 
-            }
+    @FXML
+    public void searchquery(KeyEvent keyEvent) throws SQLException {
+                    String query = search_tv.getText();
+                    ServiceActivity sa=new ServiceActivity();
+                    List<Activity> searchedActivities = sa.searchActivities(query);
+
+                        activitiesList.clear();
+                        activitiesList.addAll(searchedActivities);
+                        tableView.setItems(activitiesList);
+                        initializeTableColumns();
+                }
 
             public void gotoAjouter(ActionEvent actionEvent) {
                RouterController router=new RouterController();
-               router.navigate("/fxml/AddActivity.fxml");
+               router.navigate("/fxml/Activities/AddActivity.fxml");
             }
     public void goToNavigate(ActionEvent actionEvent) {
         RouterController router=new RouterController();
-        router.navigate("/fxml/AdminDashboard.fxml");
+        router.navigate("/fxml/Admin/AdminDashboard.fxml");
     }
     public void returnTo(MouseEvent mouseEvent)
     {
-
     }
-        };
+    public void goToActivities(MouseEvent mouseEvent) {
+        RouterController.navigate("../fxml/Activities/ActivitiesCRUD.fxml");
+    }
+
+    public void GoToActivitySessions(MouseEvent mouseEvent) {
+        RouterController.navigate("../fxml/ActivitySession/ActivitySessionCRUD.fxml");
+    }
+};

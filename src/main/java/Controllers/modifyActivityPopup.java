@@ -15,11 +15,9 @@ import javafx.stage.FileChooser;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 
@@ -45,10 +43,7 @@ public class modifyActivityPopup implements Initializable {
     @FXML
     private TextArea Description;
 
-    @FXML
-    private TextField prenomTextField1;
-
-    private byte[] imageData; // Store the image data
+    private byte[] imageData;
 
     private ServiceActivity serviceActivity = new ServiceActivity();
 
@@ -65,7 +60,7 @@ public class modifyActivityPopup implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Returning to Activities CRUD");
-                RouterController.navigate("/fxml/ActivitiesCRUD.fxml");
+                RouterController.navigate("/fxml/Activities/ActivitiesCRUD.fxml");
             }
         });
     }
@@ -87,7 +82,7 @@ public class modifyActivityPopup implements Initializable {
                 Date.setValue(LocalDate.parse(activity.getDate().toString()));
 
 
-                imageData = activity.getImageData(); // Load image data
+                imageData = activity.getImageData();
                 if (imageData != null && imageData.length > 0) {
                     imageView.setImage(new javafx.scene.image.Image(new ByteArrayInputStream(activity.getImageData())));
                 }
@@ -133,7 +128,6 @@ public class modifyActivityPopup implements Initializable {
                 FileInputStream fis = new FileInputStream(file);
                 fis.read(imageData);
                 fis.close();
-                // Display the selected image
                 imageView.setImage(new javafx.scene.image.Image(new ByteArrayInputStream(imageData)));
             } catch (Exception e) {
                 e.printStackTrace();

@@ -3,25 +3,25 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="704.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="704.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DashboardController">
     <left>
         <VBox styleClass="sidebar" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="22.0" left="28.0" top="46.0" />
             </padding>
             <StackPane maxWidth="145.0">
-                <ImageView layoutX="10" layoutY="10" fitWidth="100" fitHeight="100">
+                <ImageView fitHeight="100" fitWidth="100" layoutX="10" layoutY="10">
                     <!-- Load the image from the resources folder -->
                     <image>
-                        <Image url="@../assets/logo.png"/>
+                        <Image url="@../../assets/logo.png" />
                     </image>
                 </ImageView>            </StackPane>
             <Label text="MENU">
@@ -53,7 +53,6 @@
                         <SVGPath content="M447.888,1323H434.1a.4.4,0,0,1-.4-.4v-19.2a.4.4,0,0,1,.4-.4h10.079a.4.4,0,0,1,.283.117l3.705,3.705a.4.4,0,0,1,.117.282v11.011h-1.2v-10.328h-3.1a.377.377,0,0,1-.374-.38v-3.155h-8.7v17.565h12.182v-.356h1.2v1.14A.4.4,0,0,1,447.888,1323Zm-3.312-17.982h0v1.688h1.658Z" styleClass="icon-1" translateX="0.27" StackPane.alignment="TOP_LEFT" />
                         <SVGPath content="M446.314,1315.895v-.4a.171.171,0,0,0-.171-.17h-1.9a.4.4,0,0,1-.4-.4v-2.55a.4.4,0,0,1,.4-.4h1.9a.172.172,0,0,0,.171-.17v-.4a.967.967,0,0,1,1.652-.684l2.644,2.644a.4.4,0,0,1,0,.563l-2.644,2.645a.969.969,0,0,1-1.652-.688Zm.8-.4v.4a.164.164,0,0,0,.106.158.179.179,0,0,0,.068.014.161.161,0,0,0,.117-.052l2.363-2.363-2.363-2.363a.166.166,0,0,0-.117-.052.183.183,0,0,0-.069.014.165.165,0,0,0-.106.158v.4a.973.973,0,0,1-.878.962h-1.666v1.773l1.751,0A.966.966,0,0,1,447.11,1315.5Zm-13.009-3.812a.4.4,0,1,1,0-.8h8.964a.4.4,0,1,1,0,.8Zm0-2.629a.4.4,0,1,1,0-.8h8.964a.4.4,0,1,1,0,.8Zm0-2.63a.4.4,0,1,1,0-.8h8.964a.4.4,0,1,1,0,.8Zm8.088-2.629a.4.4,0,1,1,0-.8h.877a.4.4,0,1,1,0,.8Zm-8.091,0a.4.4,0,1,1,0-.8h6.593a.4.4,0,1,1,0,.8Z" styleClass="icon-2" translateX="2.68" translateY="6.13" StackPane.alignment="TOP_LEFT" />
                     </StackPane>
-                    <Label styleClass="regular" text="Builder" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="sidebar-tab">
                     <StackPane maxHeight="20.0" maxWidth="20.0" minHeight="20.0" minWidth="20.0">
@@ -63,9 +62,7 @@
                     <Label styleClass="regular" text="Options" />
                 </HBox>
             </VBox>
-            <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS">
-                <Label fx:id="lblVersion" text="VERSION" />
-            </HBox>
+            <HBox alignment="BOTTOM_LEFT" VBox.vgrow="ALWAYS" />
         </VBox>
     </left>
     <center>

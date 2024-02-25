@@ -3,6 +3,7 @@ package Controllers;
 import Entities.Activity;
 import Entities.ActivityType;
 import Service.ServiceActivity;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,7 +47,7 @@ public class AddActivityController {
     @FXML
     private ImageView btnReturn;
     @FXML
-    private ComboBox<ActivityType> Type;
+    private JFXComboBox<ActivityType> Type;
     @FXML
     public void initialize() {
         ObservableList<ActivityType> activityTypes = FXCollections.observableArrayList(ActivityType.values());
@@ -55,7 +56,7 @@ public class AddActivityController {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Returning to Activities CRUD");
-                RouterController.navigate("/fxml/ActivitiesCRUD.fxml");
+                RouterController.navigate("/fxml/Activities/ActivitiesCRUD.fxml");
             }
         });
     }
@@ -108,21 +109,20 @@ public class AddActivityController {
     public void AddActivity(ActionEvent actionEvent) {
         if(!validateInputsAndProceed()) return;
         String title = Title.getText();
-        ActivityType type = Type.getValue(); // Get the selected item from ComboBox
+        ActivityType type = Type.getValue();
         double price = Double.parseDouble(Price.getText());
         Date date = java.sql.Date.valueOf(Date.getValue());
         String description = Description.getText();
         try {
-            // Upload image if selected
             byte[] imageData = null;
             if (selectedImageFile != null) {
                 imageData = loadImage(selectedImageFile);
             }
 
-            // Create an Activity object
             Activity activity = new Activity();
             activity.setTitle(title);
-            activity.setTypeActivity(ActivityType.valueOf(type.toString())); // Convert enum to string if necessary
+
+            activity.setTypeActivity(type);
             activity.setPrice(price);
             activity.setDate(date);
             activity.setDescription(description);
@@ -134,9 +134,9 @@ public class AddActivityController {
 
         } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
-            // Handle exceptions appropriately
         }
     }
+
 
     private byte[] loadImage(File file) throws FileNotFoundException {
         try (FileInputStream fis = new FileInputStream(file)) {
@@ -151,7 +151,7 @@ public class AddActivityController {
     @FXML
     public void returnTo(ActionEvent actionEvent) {
         System.out.println("Returning to Activities CRUD");
-        RouterController.navigate("/fxml/ActivitiesCRUD.fxml");
+        RouterController.navigate("/fxml/Activities/ActivitiesCRUD.fxml");
     }
 
     @FXML
@@ -179,4 +179,5 @@ public class AddActivityController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

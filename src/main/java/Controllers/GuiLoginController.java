@@ -85,7 +85,7 @@ public class GuiLoginController implements Initializable {
         }
         else{  System.out.println("connected");
             RouterController Router=new RouterController();
-            Router.navigate("../fxml/AdminDashboard.fxml");
+            Router.navigate("../fxml/admin/AdminDashboard.fxml");
 
         }
     }
@@ -97,7 +97,6 @@ public class GuiLoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(view+".fxml"));
         try {
             Parent root = loader.load();
-            System.out.println(bord);
             bord.getChildren().setAll(root);
 
         } catch (IOException ex) {

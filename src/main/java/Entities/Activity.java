@@ -28,15 +28,7 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "id=" + id +
-                ", date=" + date +
-                ", typeActivity='" + typeActivity + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", imageData=" + Arrays.toString(imageData) +
-                '}';
+        return getId() + " - " + getTitle();
     }
 
     public Activity(Date date, ActivityType typeActivity, String title, String description, double price, byte[] imageData) {

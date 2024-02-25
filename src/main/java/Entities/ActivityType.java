@@ -25,5 +25,13 @@ public enum ActivityType {
     public String getDisplayName() {
         return displayName;
     }
+    public static ActivityType valueOfIgnoreCase(String name) {
+        for (ActivityType type : values()) {
+            if (type.displayName.equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant with name " + name);
+    }
 
 }
