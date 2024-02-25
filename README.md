@@ -1,6 +1,12 @@
 # PiDev-EquitationCenter
 ## Diagramme de classe
 ![ClassDiagram.png](ClassDiagram.png)
+
+## Kanban Projects
+- [Feature 2 - Samir](https://github.com/users/Samirtemtem/projects/2)
+- [Feature 3 - Ahmed](https://github.com/users/Samirtemtem/projects/5)
+- [Feature 4 - Ghaith](https://github.com/users/Samirtemtem/projects/3)
+
 ## Backlog
 
 Le backlog est une liste hiérarchisée de fonctionnalités, d’améliorations et de corrections de bogues prévues pour un développement futur. Il donne un aperçu des prochaines étapes du projet.

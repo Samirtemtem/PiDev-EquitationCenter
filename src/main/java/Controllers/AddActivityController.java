@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class AddActivityController {
@@ -51,6 +52,7 @@ public class AddActivityController {
     @FXML
     public void initialize() {
         ObservableList<ActivityType> activityTypes = FXCollections.observableArrayList(ActivityType.values());
+        System.out.println(ActivityType.values().toString());
         Type.setItems(activityTypes);
         btnReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -64,15 +66,12 @@ public class AddActivityController {
         if (
         selectedImageFile == null) {
             showAlert("Selectionner une image stp.");
-            return false; // Stop the process
+            return false;
         }
         if (Title.getText().isEmpty()) {
             showAlert("Titre ne peux pas etre vide");
             return false;
         }
-
-
-
         if (Price.getText().isEmpty()) {
             showAlert("Price ne peux pas etre vide");
             return false;
@@ -94,6 +93,33 @@ public class AddActivityController {
             showAlert("Description ne peux pas etre vide");
             return false;
         }
+
+        try {
+            double price = Double.parseDouble(Price.getText());
+            if (price <= 0) {
+                showAlert("Le prix doit être un nombre positif.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Le prix doit être un nombre valide.");
+            return false;
+        }
+
+        if (Date.getValue() == null) {
+            showAlert("La date ne peut pas être vide.");
+            return false;
+        }
+
+        if (Date.getValue().isBefore(LocalDate.now())) {
+            showAlert("La date ne peut pas être dans le passé.");
+            return false;
+        }
+
+        if (Description.getText().isEmpty()) {
+            showAlert("La description ne peut pas être vide.");
+            return false;
+        }
+
         return true;
 
     }

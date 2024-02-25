@@ -81,7 +81,36 @@ public class AddActivitySessionController {
             }
         }));
     }
-        @FXML
+    private boolean validateInput() {
+        Activity selectedActivity = ActivityID.getValue();
+        if (selectedActivity == null) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Aucune activité sélectionnée", "Veuillez sélectionner une activité.");
+            return false;
+        }
+
+        int startHour = hourSpinner.getValue();
+        int startMinute = minuteSpinner.getValue();
+        LocalTime startTime = LocalTime.of(startHour, startMinute);
+
+        int endHour = endHourSpinner.getValue();
+        int endMinute = endMinuteSpinner.getValue();
+        LocalTime endTime = LocalTime.of(endHour, endMinute);
+
+        if (startTime.isAfter(endTime)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Horaire Invalide", "L'heure de début doit être antérieure à l'heure de fin");
+            return false;
+        }
+
+        int selectedDayIndex = dayOfWeekComboBox.getSelectionModel().getSelectedIndex();
+        if (selectedDayIndex == -1) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Aucun jour sélectionné", "Veuillez sélectionner le jour.");
+            return false;
+        }
+
+        return true;
+    }
+
+    @FXML
         void initialize() {
             idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
             startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
@@ -184,6 +213,7 @@ public class AddActivitySessionController {
 
     @FXML
     void AddSession(ActionEvent actionEvent) {
+
         Activity selectedActivity = ActivityID.getValue();
 
         if (selectedActivity == null) {
