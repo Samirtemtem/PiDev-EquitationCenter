@@ -6,17 +6,28 @@ public class User {
   private String prenom;
   private String email;
   private String address;
-  private Role role;
+  public Role role;
   private String password;
   private Date dateJoined;
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", nom='" + nom + '\'' +
+            ", prenom='" + prenom + '\'' +
+            ", email='" + email + '\'' +
+            ", address='" + address + '\'' +
+            ", role=" + role +
+            ", password='" + password + '\'' +
+            ", dateJoined=" + dateJoined +
+            ", num_tel='" + num_tel + '\'' +
+            '}';
+  }
+
   private String num_tel;
   private byte[] imageData;
-  public enum Role {
-    ADMIN,
-    CLIENT,
-    INSTRUCTOR,
-    VET
-  }
+
   public User() {}
 
   public User(int id, String email, String password) {
@@ -48,6 +59,21 @@ public class User {
     this.dateJoined = dateJoined;
     this.role = role;
     this.imageData = imageData;
+  }
+private String confirmPass;
+  public User(int Id, String email, String password, String nom, String prenom, String addres, String numTel, String confirmPass, Date dateJoined, Role type, byte[] imageData) {
+    this.id=Id;
+    this.email = email;
+    this.password = password;
+    this.prenom = prenom;
+    this.address = addres;
+    this.num_tel = numTel;
+    this.confirmPass=confirmPass;
+    this.role=type;
+    this.dateJoined = dateJoined;
+    this.imageData=imageData;
+    this.nom=nom;
+
   }
 
   public int getId() {

@@ -153,18 +153,7 @@ public class ReponseController implements Initializable {
     reponsePane.setVisible(false);
   }
 
-  @FXML
-  private void gotostat(ActionEvent event) {
-    try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminStatReclmation.fxml"));
-      Parent root = loader.load();
-      Stage stage = new Stage();
-      stage.setScene(new Scene(root));
-      stage.show();
-    } catch (IOException ex) {
-      Logger.getLogger(ReponseController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
+
 
   @FXML
   private void goToNavigate(ActionEvent event) {

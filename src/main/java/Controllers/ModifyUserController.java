@@ -1,9 +1,11 @@
 package Controllers;
 
 
-import Entities.Activity;
+import Entities.Role;
 import Entities.User;
 import Service.ServiceUser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,7 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
- /*
+
 public class ModifyUserController implements Initializable {
     private int userId;
     private byte[] imageData;
@@ -45,7 +47,7 @@ public class ModifyUserController implements Initializable {
     private TextField Prenom;
 
     @FXML
-    private ComboBox<?> Type;
+    private ComboBox<Role> Type;
 
     @FXML
     private TextField address;
@@ -83,7 +85,7 @@ public class ModifyUserController implements Initializable {
     private Label prenomLabel;
    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Type.getItems().addAll(ActivityType.values());
+        Type.getItems().addAll(Role.values());
         loadData();
         btnReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -93,24 +95,102 @@ public class ModifyUserController implements Initializable {
             }
         });
     }
+
+
+
+
     public void init(int userId) {
         this.userId = userId;
         loadData();
     }
+    private File selectedImageFile;
+    public boolean validateInputsAndProceed() {
 
+        if (Nom.getText().isEmpty()) {
+            showAlert("Le nom est requis");
+            return false;
+        }
+
+
+
+        if (Prenom.getText().isEmpty()) {
+            showAlert("Le prénom est requis");
+            return false;
+        }
+        if (address.getText().isEmpty()) {
+            showAlert("Address est requis");
+            return false;
+        }
+        if (num_tel.getText().isEmpty()) {
+            showAlert("Numéro de téléphone est requis");
+            return false;
+        }
+        if (Email.getText().isEmpty()) {
+            showAlert("Email est requis");
+            return false;
+        }
+
+        if (Date.getValue() == null) {
+            showAlert("Date est requis");
+
+            return false;
+        }
+
+        if (Password.getText().isEmpty()) {
+            showAlert("password est requiq");
+            return false;
+        }
+        String password  = Password.getText();
+        if (password.length() < 8) {
+            showAlert("Le mot de passe doit contenir au moins 8 caractères");
+            return false;
+        }
+        if (confirmpass.getText().isEmpty()) {
+            showAlert("La confirmation du mot de passe est requise");
+            return false;
+        }
+        // Vérifier si l'adresse email est valide et afficher une erreur si elle ne l'est pas
+        String email = Email.getText();
+        if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+            showAlert("L'adresse email est invalide");
+            return false;
+        }
+// Vérifier si le mot de passe et sa confirmation correspondent et afficher une erreur si ce n'est pas le cas
+        if (Password.equals(confirmpass)){
+            showAlert("Les mots de passe ne correspondent pas");
+            return false;
+        }
+
+
+        return true;
+
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     void ModifiyUser(ActionEvent event) {
+            if(!validateInputsAndProceed()) return;
+            String nom = Nom.getText();
+            String prenom = Prenom.getText();
+            String addres = address.getText();
+            String Num_tel = num_tel.getText();
+            String email = Email.getText();
+            String password  = Password.getText();
+            String confirmPass=confirmpass.getText();
+            Role type = Type.getValue(); // Get the selected item from ComboBox
+            java.util.Date dateJoined = java.sql.Date.valueOf(Date.getValue());
+            System.out.println(nom+prenom);
         try {
-            String title = Title.getText();
-            ActivityType type = Type.getValue();
-            String description = Description.getText();
-            double price = Double.parseDouble(Price.getText());
-            java.util.Date utilDate = java.sql.Date.valueOf(Date.getValue());
-
             // Update the activity
-            Activity updatedActivity = new Activity(this.activityId, utilDate, type, title, description, price, imageData);
-            serviceActivity.update(updatedActivity);
-            showSuccessMessage("Votre activité a été modifiée avec succées");
+
+            User updatedUser = new User(this.userId,email,password,nom,prenom,addres,Num_tel,confirmPass,dateJoined,type,imageData);
+            serviceUser.update(updatedUser);
+            showSuccessMessage("Votre utilisateur a été modifiée avec succées");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,25 +199,30 @@ public class ModifyUserController implements Initializable {
     @FXML
     void returnTo(MouseEvent event) {
 
+
     }
     private void loadData() {
         try {
             User user =serviceUser .findById(userId);
             if (user != null) {
-                Title.setText(user.getTitle());
-                Type.setValue(ActivityType.valueOf(activity.getTypeActivity().name()));
-                Description.setText(user.getDescription());
-                Price.setText(String.valueOf(user.getPrice()));
-                java.util.Date date = user.getDate();
-                Date.setValue(LocalDate.parse(user.getDate().toString()));
-
+                System.out.println(user);
+                Nom.setText(user.getNom());
+                Type.setValue(Role.valueOf(user.getRole().name()));
+                Prenom.setText(user.getPrenom());
+                java.util.Date date = user.getDateJoined();
+                Date.setValue(LocalDate.parse(user.getDateJoined().toString()));
+                confirmpass.setText(user.getPassword());
+                num_tel.setText(user.getNum_tel());
+                address.setText(user.getAddress());
+                Email.setText(user.getEmail());
+                Password.setText(user.getPassword());
 
                 imageData = user.getImageData(); // Load image data
                 if (imageData != null && imageData.length > 0) {
                     imageView.setImage(new javafx.scene.image.Image(new ByteArrayInputStream(user.getImageData())));
                 }
             } else {
-                System.out.println("Activity not found.");
+                System.out.println("user not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,4 +261,4 @@ public class ModifyUserController implements Initializable {
     }
 }
 
-     */
+

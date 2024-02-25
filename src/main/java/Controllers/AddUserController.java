@@ -1,7 +1,7 @@
 package Controllers;
 
 
-import Entities.Activity;
+
 import Entities.Role;
 import Entities.User;
 import Service.ServiceUser;
@@ -137,7 +137,8 @@ public class AddUserController implements Initializable {
             showAlert("password est requiq");
             return false;
         }
-        if (Password.length() < 8) {
+        String password  = Password.getText();
+        if (password.length() < 8) {
             showAlert("Le mot de passe doit contenir au moins 8 caractères");
             return false;
         }
@@ -146,12 +147,13 @@ public class AddUserController implements Initializable {
             return false;
         }
         // Vérifier si l'adresse email est valide et afficher une erreur si elle ne l'est pas
-        if (Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+        String email = Email.getText();
+        if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
             showAlert("L'adresse email est invalide");
             return false;
         }
 // Vérifier si le mot de passe et sa confirmation correspondent et afficher une erreur si ce n'est pas le cas
-        if (!Password.equals(confirmpass)){
+        if (Password.equals(confirmpass)){
             showAlert("Les mots de passe ne correspondent pas");
             return false;
         }
@@ -176,6 +178,7 @@ public class AddUserController implements Initializable {
         String Num_tel = num_tel.getText();
         String email = Email.getText();
         String password  = Password.getText();
+        String confirmPass=confirmpass.getText();
         Role type = Type.getValue(); // Get the selected item from ComboBox
         java.util.Date date = java.sql.Date.valueOf(Date.getValue());
 
@@ -219,8 +222,8 @@ public class AddUserController implements Initializable {
     }
     @FXML
     public void returnTo(ActionEvent actionEvent) {
-        System.out.println("Returning to Activities CRUD");
-        RouterController.navigate("/fxml/ActivitiesCRUD.fxml");
+        System.out.println("Returning to users CRUD");
+        RouterController.navigate("/fxml/UsersCRUD.fxml");
     }
 
     @FXML

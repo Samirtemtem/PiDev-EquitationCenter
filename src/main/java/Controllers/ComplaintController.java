@@ -31,8 +31,6 @@ public class ComplaintController implements Initializable {
   @FXML
   private AnchorPane bord;
 
-  @FXML
-  private ComboBox<String> comboBoxUsers;
 
   @FXML
   private Button btnNaviguer;
@@ -42,8 +40,6 @@ public class ComplaintController implements Initializable {
   @FXML
   private TableColumn<Complaint, Integer> idColumn;
 
-  @FXML
-  private TableColumn<Complaint, Integer> userIdColumn;
 
   @FXML
   private TableColumn<Complaint, String> objetColumn;
@@ -92,13 +88,7 @@ public class ComplaintController implements Initializable {
   @FXML
   private DatePicker datePickerCreatedAt;
   @FXML
-  void goToNavigate(ActionEvent event) {/*
-    System.out.println("enter0");
-    Complaint recSelected = (Complaint) tableReclamation.getSelectionModel().getSelectedItem();
-    ServiceReponse rp = new ServiceReponse();
-    Reponse r= rp.getReponseByIdReclamation(recSelected.getId());
-    reponsevalue.setText(r.getContenuRep());
-    System.out.println(r.getContenuRep());*/
+  void goToNavigate(ActionEvent event) {
 
   }
 
@@ -114,68 +104,15 @@ public class ComplaintController implements Initializable {
     Complaint recSelected = (Complaint) tableReclamation.getSelectionModel().getSelectedItem();
     System.out.println(recSelected.getCreatedAt());
     createdAt.setText(recSelected.getCreatedAt().toString());
-    Description.setText(recSelected.getDescription());
     Objet.setText(recSelected.getObjet());
+    Description.setText(recSelected.getDescription());
+
   }
- /*
-  @FXML
-  void saveReclamation(ActionEvent event) {
-    /*
-    ServiceComplaint rc  = new ServiceComplaint();
-    String TypeR =tfTypeR.getText();
-    String Description =tfDescription.getText();
-    String objet =tfObjet.getText();
-    String tell=numtell.getText();
-    //  verifBadWord(Description);
-    if(TypeR.length()==0||Description.length()==0||objet.length()==0||tell.length()==0){
-      erreurPane.setVisible(true);
-      erreurvalue.setText("Tous les champs sont obligatoires ");
-    }else if(tell.length()!=8||isNumeric(tell)==false){
 
-      erreurPane.setVisible(true);
-      erreurvalue.setText("Contact doit etre une chaine numérique de 8 caractères ");
-    }else{
-
-      erreurvalue.setText("");
-      erreurPane.setVisible(false);
-
-
-      if(actionForm.compareTo("ajouter")==0){
-
-        String etat ="nonresolu";
-
-        Complaint r = new Complaint(0,TypeR,Description,objet,etat,idUser);
-        rc.ajouterReclamation(r);
-
-    try{
-      Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("+216"+numtell.getText()),
-                new com.twilio.type.PhoneNumber("+12766246381"),
-                "Votre réclamation a été ajoutée avec succès. Nous allons l'examiner dès que possible et vous contacterons si nous avons besoin de plus d'informations. Merci de nous avoir contacté.")
-            .create();
-    }catch(Exception e){
-        System.out.print("erreur"+e.getMessage());
-    }
-        Refresh();
-
-      }else{*/
-        /* Complaint recSelected = (Complaint) tableReclamation.getSelectionModel().getSelectedItem();
-
-        recSelected.setDescription(tfDescription.getText());
-        recSelected.setObjet(tfObjet.getText());
-        System.out.print(recSelected);
-        rc.Update(recSelected);
-        actionForm="ajouter";
-        Refresh();
-
-      }
-    }
-  }*/
   public void Refresh() throws SQLException {
     ServiceComplaint rc  = new ServiceComplaint();
     ObservableList<Complaint> list = (ObservableList<Complaint>) rc.ReadAll();
     idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-    userIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
     objetColumn.setCellValueFactory(new PropertyValueFactory<>("objet"));
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
@@ -223,7 +160,6 @@ public class ComplaintController implements Initializable {
     Complaint selectedComplaint = tableReclamation.getSelectionModel().getSelectedItem();
     if (selectedComplaint != null) {
       ServiceUser su=new ServiceUser();
-      comboBoxUsers.setValue(su.findById(selectedComplaint.getUserId()).getEmail());
       textFieldDescription.setText(selectedComplaint.getDescription());
       textFieldObjet.setText(selectedComplaint.getObjet());
       java.util.Date sqlDate = selectedComplaint.getCreatedAt();
@@ -244,7 +180,7 @@ public class ComplaintController implements Initializable {
   private void modifierReclamation(ActionEvent event) {
     Complaint selectedComplaint = tableReclamation.getSelectionModel().getSelectedItem();
     if (selectedComplaint != null) {
-      selectedComplaint.setUserId(getSelectedUserId());
+      selectedComplaint.setUserId(getSelectedUserId().getId());
       selectedComplaint.setDescription(textFieldDescription.getText());
       selectedComplaint.setObjet(textFieldObjet.getText());
       selectedComplaint.setCreatedAt(java.sql.Date.valueOf(datePickerCreatedAt.getValue()));
@@ -266,60 +202,57 @@ public class ComplaintController implements Initializable {
     }
   }
 
-  private int getSelectedUserId() {
-    String selectedEmail = comboBoxUsers.getValue();
-    if (selectedEmail == null || selectedEmail.isEmpty()) {
-      return 0; // Or handle the case where no email is selected
-    }
-
-    try {
-      ServiceUser serviceUser = new ServiceUser();
-      User user = serviceUser.findByEmail(selectedEmail);
-      if (user != null) {
-        return user.getId();
-      } else {
-        return 0; // Or handle the case where user is not found
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return 0; // Or handle the exception as needed
-    }
+  private User getSelectedUserId() {
+   return GuiLoginController.user;
   }
 
 
 
-  private void loadUsers() throws SQLException {
-    ServiceUser su=new ServiceUser();
-    List<User> users = su.ReadAll();
-    for (User user : users) {
-      comboBoxUsers.getItems().add(user.getEmail());
-    }  }
+
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     try {
-      loadUsers();
       Refresh();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
   }
 
+  public boolean validateInputsAndProceed() {
+
+    if (textFieldObjet.getText().isEmpty()) {
+      showAlert("Object est requis");
+      return false;
+    }
+    if (textFieldDescription.getText().isEmpty()) {
+      showAlert("Description est requis");
+      return false;
+    }
+    if (datePickerCreatedAt.getValue() == null) {
+      showAlert("Date est requis");
+
+      return false;
+    }
+    return true;
+  }
+  private void showAlert(String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+  }
   @FXML
   void saveReclamation(ActionEvent event) {
-    String selectedUserEmail = comboBoxUsers.getValue();
 
     ServiceUser serviceUser = new ServiceUser();
-    User selectedUser = null;
-    try {
-      selectedUser = serviceUser.findByEmail(selectedUserEmail);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    User selectedUser = getSelectedUserId();
+
 
     if (selectedUser == null) {
       return;
     }
-
+    if(!validateInputsAndProceed()) return;
     String description = textFieldDescription.getText();
     String objet = textFieldObjet.getText();
     java.sql.Date createdAt = java.sql.Date.valueOf(datePickerCreatedAt.getValue());

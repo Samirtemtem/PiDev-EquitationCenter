@@ -6,5 +6,8 @@ package Entities;
         CLIENT,
         INSTRUCTOR,
         VET
+
+
+
     }
 

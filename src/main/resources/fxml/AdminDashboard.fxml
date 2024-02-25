@@ -66,7 +66,7 @@
             <children>
                 <Pane layoutX="148.0" layoutY="191.0" onMouseClicked="#goToUsers" prefHeight="172.0" prefWidth="252.0" style="-fx-background-color: #e6f7bc; -fx-background-radius: 7;">
                     <children>
-                        <Label layoutX="27.0" layoutY="79.0" onMouseClicked="#goToUsers" prefHeight="36.0" prefWidth="217.0" text="Instructeurs">
+                        <Label layoutX="27.0" layoutY="79.0" onMouseClicked="#goToUsers" prefHeight="36.0" prefWidth="217.0" text="Utilisateurs">
                             <font>
                                 <Font name="System Bold" size="22.0" />
                             </font>
@@ -76,7 +76,7 @@
                                 <Image url="@../assets/userIcon.png" />
                             </image>
                         </ImageView>
-                        <Label layoutX="29.0" layoutY="108.0" onMouseClicked="#goToUsers" prefHeight="36.0" prefWidth="217.0" text="Gérer les instructeurs">
+                        <Label layoutX="29.0" layoutY="108.0" onMouseClicked="#goToUsers" prefHeight="36.0" prefWidth="217.0" text="Gérer les utilisateurs ">
                             <font>
                                 <Font name="System Bold" size="16.0" />
                             </font>

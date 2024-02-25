@@ -6,6 +6,7 @@ import Utils.Datasource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import Entities.Role;
 
 public class ServiceUser implements IService<User> {
     private Connection connection = Datasource.getConn();
@@ -15,7 +16,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void add(User user) throws SQLException {
-        String query = "INSERT INTO users (email, password, nom,prenom,address,num_tel,dateJoined, role,ImageData) VALUES (?, ?, ?, ?,?,?,?,?,?)";
+        String query = "INSERT INTO user (email, password, nom,prenom,address,num_tel,dateJoined, role,ImageData) VALUES (?, ?, ?, ?,?,?,?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
@@ -32,7 +33,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void update(User user) throws SQLException {
-        String query = "UPDATE users SET email = ?, password = ?, nom = ?, prenom = ?,address = ?,num_tel = ?,dateJoined = ?,role = ? ,ImageData = ? WHERE id = ?";
+        String query = "UPDATE user SET email = ?, password = ?, nom = ?, prenom = ?,address = ?,num_tel = ?,dateJoined = ?,role = ? ,ImageData = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
@@ -50,7 +51,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public void delete(User user) throws SQLException {
-        String query = "DELETE FROM users WHERE id = ?";
+        String query = "DELETE FROM user WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, user.getId());
             statement.executeUpdate();
@@ -63,7 +64,7 @@ public class ServiceUser implements IService<User> {
 
     @Override
     public User findById(int id) throws SQLException {
-        String query = "SELECT * FROM users WHERE id = ?";
+        String query = "SELECT * FROM user WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -78,7 +79,7 @@ public class ServiceUser implements IService<User> {
                 user.setNum_tel(resultSet.getString("num_tel"));
                 user.setDateJoined(resultSet.getDate("dateJoined"));
                 user.setImageData(resultSet.getBytes("imageData"));
-                user.setRole(User.Role.valueOf(resultSet.getString("role")));
+                user.setRole(user.role.valueOf(resultSet.getString("role")));
                 return user;
             }
             return null; // No user found with the given ID
@@ -88,7 +89,7 @@ public class ServiceUser implements IService<User> {
     @Override
     public List<User> ReadAll() throws SQLException {
         List<User> users = new ArrayList<>();
-        String query = "SELECT * FROM users";
+        String query = "SELECT * FROM user";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
@@ -102,15 +103,15 @@ public class ServiceUser implements IService<User> {
                 user.setNum_tel(resultSet.getString("num_tel"));
                 user.setDateJoined(resultSet.getDate("dateJoined"));
                 user.setImageData(resultSet.getBytes("imageData"));
-                user.setRole(User.Role.valueOf(resultSet.getString("role")));
+                user.setRole(user.role.valueOf(resultSet.getString("role")));
                 users.add(user);
             }
         }
         return users;
     }
 
-    public User login(String email, String password, User.Role role) throws SQLException {
-        String query = "SELECT * FROM users WHERE email = ? AND password = ? AND role = ?";
+    public User login(String email, String password, Role role) throws SQLException {
+        String query = "SELECT * FROM user WHERE email = ? AND password = ? AND role = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, password);
@@ -122,12 +123,7 @@ public class ServiceUser implements IService<User> {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setNom(resultSet.getString("nom"));
-                user.setPrenom(resultSet.getString("prenom"));
-                user.setAddress(resultSet.getString("address"));
-                user.setNum_tel(resultSet.getString("num_tel"));
-                user.setDateJoined(resultSet.getDate("dateJoined"));
-                user.setImageData(resultSet.getBytes("imageData"));
-                user.setRole(User.Role.valueOf(resultSet.getString("role")));
+                user.setRole(user.role.valueOf(resultSet.getString("role")));
                 return user; // User found with the given email, password, and role
             }
         }

@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import Controllers.ImageViewTableCellFactory?>
 <AnchorPane id="AnchorPane" fx:id="bord" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f8f5f5;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UsersCrudController">
     <children>
@@ -65,6 +64,11 @@
                                     <!-- Other columns remain the same -->
                                     <TableColumn fx:id="Role" prefWidth="86.40000915527344" text="Role">
                                         <cellValueFactory>
+                                            <PropertyValueFactory property="Role" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="86.40000915527344" text="Image">
+                                        <cellValueFactory>
                                             <PropertyValueFactory property="imageData" />
                                         </cellValueFactory>
                                         <cellFactory>
@@ -72,10 +76,9 @@
                                         </cellFactory>
                                     </TableColumn>
 
-
-                                    <TableColumn prefWidth="122.39996337890625" text="DateJoined">
+                                    <TableColumn prefWidth="122.39996337890625" text="date de rejoindre ">
                                         <cellValueFactory>
-                                            <PropertyValueFactory property="date" />
+                                            <PropertyValueFactory property="dateJoined" />
                                         </cellValueFactory>
                                     </TableColumn>
                                     <TableColumn prefWidth="83.2000732421875" text="Email">
@@ -83,12 +86,12 @@
                                             <PropertyValueFactory property="Email" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="109.5999755859375" text="Password">
+                                    <TableColumn prefWidth="109.5999755859375" text="Mot de passe ">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="Password" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="98.4000244140625" text="Prenom">
+                                    <TableColumn prefWidth="98.4000244140625" text="Prénom">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="Prenom" />
                                         </cellValueFactory>
@@ -98,12 +101,12 @@
                                             <PropertyValueFactory property="Nom" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn minWidth="4.800048828125" prefWidth="98.4000244140625" text="Address">
+                                    <TableColumn minWidth="4.800048828125" prefWidth="98.4000244140625" text="Adresse">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="Address" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="118.400146484375" text="Num_tel">
+                                    <TableColumn prefWidth="118.400146484375" text="Numéro de téléphone">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="Num_tel" />
                                         </cellValueFactory>

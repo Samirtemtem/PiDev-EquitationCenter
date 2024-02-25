@@ -65,12 +65,12 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="438.0" layoutY="151.0" prefHeight="50.0" prefWidth="295.0" style="-fx-background-radius: 5px;" text="DateJoined">
+                <Label layoutX="438.0" layoutY="151.0" prefHeight="50.0" prefWidth="295.0" style="-fx-background-radius: 5px;" text="Date de rejoindre">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
                 </Label>
-                <Label layoutX="82.0" layoutY="162.0" text="Prenom">
+                <Label layoutX="82.0" layoutY="162.0" text="Prénom">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -98,12 +98,12 @@
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Label layoutX="82.0" layoutY="345.0" text="Password">
+            <Label layoutX="82.0" layoutY="345.0" text="Mot de passe">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label layoutX="443.0" layoutY="345.0" text="Confirmer Password">
+            <Label layoutX="443.0" layoutY="345.0" text="Confirmer mot de passe">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -128,12 +128,12 @@
                   <Font size="18.0" />
                </font>
             </TextField>
-            <Label layoutX="82.0" layoutY="432.0" text="Address">
+            <Label layoutX="82.0" layoutY="432.0" text="Adresse">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <Label layoutX="443.0" layoutY="432.0" text="Num_tel">
+            <Label layoutX="443.0" layoutY="432.0" text="Numéro de téléphone">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>

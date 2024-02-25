@@ -84,8 +84,10 @@ public class UsersCrudController implements Initializable {
 
         TableColumn<User, Integer> idColumn = new TableColumn<>("Id");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<User, Void> imageColumn = new TableColumn<>("Image");
+        imageColumn.setCellFactory(getImageCellFactory());
         TableColumn<User, Void> RoleColumn = new TableColumn<>("Role");
-        RoleColumn.setCellFactory(getImageCellFactory());
+        RoleColumn.setCellValueFactory(new PropertyValueFactory<>("Role"));
         TableColumn<User, String> prenomColumn = new TableColumn<>("Prenom");
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("Prenom"));
         TableColumn<User, String> nomColumn = new TableColumn<>("Nom");
@@ -101,19 +103,13 @@ public class UsersCrudController implements Initializable {
 
         TableColumn<User, String> Num_telColumn = new TableColumn<>("Num_tel");
         Num_telColumn.setCellValueFactory(new PropertyValueFactory<>("Num_tel"));
-        TableColumn<User, String> dateJoinedColumn = new TableColumn<>("DateJoined");
-        dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-
-
-
-
-
+        TableColumn<User, String> dateJoinedColumn = new TableColumn<>("dateJoined");
+        dateJoinedColumn.setCellValueFactory(new PropertyValueFactory<>("dateJoined"));
 
         TableColumn<User, Void> actionColumn = new TableColumn<>("Action");
         actionColumn.setCellFactory(getButtonCellFactory());
 
-        tableView.getColumns().addAll(idColumn,RoleColumn,nomColumn, prenomColumn,emailColumn,passwordColumn, addressColumn, Num_telColumn,dateJoinedColumn,actionColumn);
+        tableView.getColumns().addAll(idColumn,imageColumn,RoleColumn,nomColumn, prenomColumn,emailColumn,passwordColumn, addressColumn, Num_telColumn,dateJoinedColumn,actionColumn);
     }
     private Callback<TableColumn<User, Void>, TableCell<User, Void>> getImageCellFactory() {
         return new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {

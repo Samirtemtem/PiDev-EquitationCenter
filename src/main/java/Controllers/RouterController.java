@@ -58,11 +58,11 @@ public class RouterController {
       AnchorPane root = loader.load();
 
       // Access the controller
-      //ModifyUserController controller = loader.getController();
+      ModifyUserController controller = loader.getController();
 
       // If activityId is not null, initialize the controller with the activity ID
       if (Id != null) {
-        //controller.init(Id);
+        controller.init(Id);
       }
 
 
