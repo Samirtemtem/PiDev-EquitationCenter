@@ -1,5 +1,6 @@
 package Controllers;
 import Entities.Complaint;
+import Entities.Role;
 import Entities.User;
 import Service.ServiceComplaint;
 import Service.ServiceUser;
@@ -89,12 +90,16 @@ public class ComplaintController implements Initializable {
   private DatePicker datePickerCreatedAt;
   @FXML
   void goToNavigate(ActionEvent event) {
-
+    User user=getSelectedUserId();
+    if(user.role.equals(Role.valueOf("ADMIN")))
+      RouterController.navigate("/fxml/AdminDashboard");
+    else
+      RouterController.navigate("/fxml/ClientDashboard.fxml");
   }
 
   @FXML
   void goToReclamation(ActionEvent event) {
-
+      RouterController.navigate("/fxml/Complaint.fxml");
   }
 
   @FXML
@@ -268,5 +273,9 @@ public class ComplaintController implements Initializable {
       e.printStackTrace();
     }
   }
-
+  @FXML
+  public void returnTo(ActionEvent actionEvent) {
+    System.out.println("Returning to clientDashbord");
+    RouterController.navigate("/fxml/ClientDashboard.fxml");
+  }
 }

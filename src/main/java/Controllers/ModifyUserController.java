@@ -6,6 +6,7 @@ import Entities.User;
 import Service.ServiceUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -191,6 +192,8 @@ public class ModifyUserController implements Initializable {
             User updatedUser = new User(this.userId,email,password,nom,prenom,addres,Num_tel,confirmPass,dateJoined,type,imageData);
             serviceUser.update(updatedUser);
             showSuccessMessage("Votre utilisateur a été modifiée avec succées");
+            MouseEvent e=null;
+            this.returnTo(e);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -230,7 +233,8 @@ public class ModifyUserController implements Initializable {
         }
     }
     @FXML
-    void uploadImage(MouseEvent  event) {
+    void uploadImage(Event event) {
+        System.out.println("TEST");
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selectionnez une image");
         fileChooser.getExtensionFilters().addAll(

@@ -123,6 +123,7 @@ public class ServiceUser implements IService<User> {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setNom(resultSet.getString("nom"));
+                user.setPrenom(resultSet.getString("prenom"));
                 user.setRole(user.role.valueOf(resultSet.getString("role")));
                 return user; // User found with the given email, password, and role
             }

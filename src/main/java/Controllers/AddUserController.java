@@ -122,6 +122,7 @@ public class AddUserController implements Initializable {
             showAlert("Numéro de téléphone est requis");
             return false;
         }
+
         if (Email.getText().isEmpty()) {
             showAlert("Email est requis");
             return false;
@@ -188,7 +189,7 @@ public class AddUserController implements Initializable {
             if (selectedImageFile != null) {
                 imageData = loadImage(selectedImageFile);
             }
-            // Create an Activity object
+            // Create user
             User user = new User();
             user.setNom(nom);
             user.setRole(Role.valueOf(type.toString())); // Convert enum to string if necessary

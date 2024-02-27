@@ -60,7 +60,7 @@ public class RouterController {
       // Access the controller
       ModifyUserController controller = loader.getController();
 
-      // If activityId is not null, initialize the controller with the activity ID
+      // If userId is not null, initialize the controller with the user ID
       if (Id != null) {
         controller.init(Id);
       }

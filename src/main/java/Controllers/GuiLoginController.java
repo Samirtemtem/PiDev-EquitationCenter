@@ -80,13 +80,14 @@ public class GuiLoginController implements Initializable {
         String email = emailInput.getText();
         String password = passwordInput.getText();
 
+
         user = su.login(email, password, Role.valueOf("CLIENT"));
         if (user == null){
             erreur.setText("Email ou mot de passe incorrecte");
         }
         else{  System.out.println("connected");
             RouterController Router=new RouterController();
-            Router.navigate("../fxml/Complaint.fxml");
+            Router.navigate("../fxml/ClientDashboard.fxml");
 
         }
     }
