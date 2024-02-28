@@ -17,7 +17,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         RouterController.setPrimaryStage(primaryStage);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Activities/AddActivity.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Client/ClientDashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

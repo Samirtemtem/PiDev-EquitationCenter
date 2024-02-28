@@ -23,7 +23,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import Entities.Admin;
 
 /**
  * FXML Controller class
@@ -79,13 +78,21 @@ public class GuiLoginController implements Initializable {
         String email = emailInput.getText();
         String password = passwordInput.getText();
 
-        user = su.login(email, password, User.Role.valueOf("ADMIN"));
+        user = su.login(email, password);
         if (user == null){
+            erreur.setText("");
             erreur.setText("Email ou mot de passe incorrecte");
         }
         else{  System.out.println("connected");
-            RouterController Router=new RouterController();
-            Router.navigate("../fxml/admin/AdminDashboard.fxml");
+            if (user.getRole().equals(User.Role.ADMIN))
+            RouterController.navigate("../fxml/admin/AdminDashboard.fxml");
+            if (user.getRole().equals(User.Role.CLIENT))
+                RouterController.navigate("../fxml/Client/ClientDashboard.fxml");
+            if (user.getRole().equals(User.Role.VET))
+                System.out.println("Vet dashboard is not integrated yet");
+            //RouterController.navigate("../fxml/Vet/VetDashboard.fxml");
+            if (user.getRole().equals(User.Role.INSTRUCTOR))
+                System.out.println("Instructor dashboard is not integrated yet");
 
         }
     }

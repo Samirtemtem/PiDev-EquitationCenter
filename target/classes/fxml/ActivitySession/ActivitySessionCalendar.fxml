@@ -21,6 +21,7 @@
         </children>
         <padding>
             <Insets right="15.0" />
+            <calendarFX></calendarFX>
         </padding>
     </HBox>
 </AnchorPane>

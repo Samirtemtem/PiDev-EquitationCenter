@@ -85,12 +85,11 @@ public class ServiceUser implements IService<User> {
         return users;
     }
 
-    public User login(String email, String password, User.Role role) throws SQLException {
-        String query = "SELECT * FROM users WHERE email = ? AND password = ? AND role = ?";
+    public User login(String email, String password) throws SQLException {
+        String query = "SELECT * FROM users WHERE email = ? AND password = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
             statement.setString(2, password);
-            statement.setString(3, role.toString());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 User user = new User();

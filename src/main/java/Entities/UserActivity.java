@@ -6,8 +6,17 @@ import java.util.*;
  * 
  */
 public class UserActivity {
-
-	/**
+	@Override
+	public String toString() {
+		return "UserActivity{" +
+				"UserId=" + UserId +
+				", id=" + id +
+				", ActivityId=" + ActivityId +
+				", Feedback='" + Feedback + '\'' +
+				", stars=" + stars +
+				'}';
+	}
+/**
 	 * Default constructor
 	 */
 
@@ -26,6 +35,10 @@ public class UserActivity {
 	 */
 	private String Feedback;
 	private int stars;
+
+	public UserActivity() {
+
+	}
 
 
 	public void LeaveFeedback(String feedback, int stars) {

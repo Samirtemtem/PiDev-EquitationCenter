@@ -40,6 +40,7 @@ public class modifyActivityPopup implements Initializable {
     @FXML
     private DatePicker Date;
 
+    private File selectedImageFile;
     @FXML
     private TextArea Description;
 

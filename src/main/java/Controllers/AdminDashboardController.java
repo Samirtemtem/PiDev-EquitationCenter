@@ -11,11 +11,11 @@ public class AdminDashboardController {
 
     public void initialize() {
         GuiLoginController guilogin = new GuiLoginController();
-        String name="Bienvenue "+guilogin.user.getName()+"!";
+        String name="Bienvenue Admin, "+guilogin.user.getName()+"!";
         adminNameLabel.setText(name);
     }
     public void goToLogn(MouseEvent mouseEvent) {
-        RouterController.navigate("/fxml/Login/AdminLogin.fxml");
+        RouterController.navigate("/fxml/Login/Login.fxml");
     }
 
     public void goToNavigate(ActionEvent actionEvent) {
