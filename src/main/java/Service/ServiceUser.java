@@ -7,29 +7,46 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Entities.Role;
+import Utils.PassSecurity;
+
 
 public class ServiceUser implements IService<User> {
     private Connection connection = Datasource.getConn();
+    PassSecurity ps =new PassSecurity();
 
     public ServiceUser() {
     }
 
     @Override
     public void add(User user) throws SQLException {
-        String query = "INSERT INTO user (email, password, nom,prenom,address,num_tel,dateJoined, role,ImageData) VALUES (?, ?, ?, ?,?,?,?,?,?)";
+        byte[] salt = ps.generateSalt();
+        //hash the password withe salt
+        if(emailExists(user.getEmail())){
+            System.out.println("User with email"+user.getEmail()+"already exists.");
+            return ;// Exit the method if email exists
+        }
+
+    String query = "INSERT INTO user (email, hash,salt, nom,prenom,address,num_tel,dateJoined, role,ImageData) VALUES (?,?, ?, ?, ?,?,?,?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, user.getEmail());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getNom());
-            statement.setString(4, user.getPrenom());
-            statement.setString(5, user.getAddress());
-            statement.setString(6, user.getNum_tel());
-            statement.setDate(7, new java.sql.Date(user.getDateJoined().getTime()));
-            statement.setString(8, user.getRole().toString());
-            statement.setBytes(9, user.getImageData()); // Set image data as byte array
+            String hashedPassword = ps.hashPassword(user.getPassword(), salt);
+            statement.setString(2, hashedPassword);
+            statement.setBytes(3, salt);
+            statement.setString(4, user.getNom());
+            statement.setString(5, user.getPrenom());
+            statement.setString(6, user.getAddress());
+            statement.setString(7, user.getNum_tel());
+            statement.setDate(8, new java.sql.Date(user.getDateJoined().getTime()));
+            statement.setString(9, user.getRole().toString());
+            statement.setBytes(10, user.getImageData()); // Set image data as byte array
             statement.executeUpdate();
         }
     }
+
+
+
+
+
 
     @Override
     public void update(User user) throws SQLException {
@@ -111,29 +128,52 @@ public class ServiceUser implements IService<User> {
     }
 
     public User login(String email, String password, Role role) throws SQLException {
-        String query = "SELECT * FROM user WHERE email = ? AND password = ? AND role = ?";
+        User user = null;
+        if (!emailExists(email)) {
+            System.out.println("email doesn't exist");
+            return null;
+        }
+        String query = "SELECT * FROM user WHERE email = ?  AND role = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, email);
-            statement.setString(2, password);
-            statement.setString(3, role.toString());
+           // statement.setString(2, password);
+            statement.setString(2, role.toString());
+
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setNom(resultSet.getString("nom"));
-                user.setPrenom(resultSet.getString("prenom"));
-                user.setRole(user.role.valueOf(resultSet.getString("role")));
-                return user; // User found with the given email, password, and role
+                byte[] salt = resultSet.getBytes("salt");
+                String hashedPassword = resultSet.getString("hash");
+                if (ps.validatePassword(password, hashedPassword, salt)) {
+                    user = new User();
+                    user.setId(resultSet.getInt("id"));
+                    user.setEmail(resultSet.getString("email"));
+                    //user.setPassword(resultSet.getString("password"));
+                    user.setNom(resultSet.getString("nom"));
+                    user.setPrenom(resultSet.getString("prenom"));
+                    user.setRole(user.role.valueOf(resultSet.getString("role")));
+                    return user; // User found with the given email, password, and role
+                }
             }
+            return null; // No user found with the given email, password, and role
         }
-        return null; // No user found with the given email, password, and role
     }
-
+    public boolean emailExists(String email){
+        String query = "SELECT  COUNT(*) FROM user WHERE email = ?";
+        try{ PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0; //if count>0 email exists
+                }
+            }catch(SQLException e){
+                System.err.println("error checking email existence "+e.getMessage());
+            }
+            return false;
+    }
     public User findByEmail(String selectedUserEmail) throws SQLException {
         User user = null;
-        String query = "SELECT * FROM users WHERE email = ?";
+        String query = "SELECT  * FROM users WHERE email = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, selectedUserEmail);
             try (ResultSet rs = stmt.executeQuery()) {

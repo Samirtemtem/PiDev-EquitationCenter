@@ -1,5 +1,7 @@
 package Entities;
 import java.util.Date;
+import java.util.Objects;
+
 public class User {
   private int id;
   private String nom;
@@ -154,5 +156,28 @@ private String confirmPass;
 
   public void setImageData(byte[] imageData) {
     this.imageData = imageData;
+  }
+
+  public int hashCode() {
+    int hash = 7;
+    hash = 61 * hash + this.id;
+    hash = 61 * hash + Objects.hashCode(this.nom);
+    return hash;
+  }
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    } else if (obj == null) {
+      return false;
+    } else if (this.getClass() != obj.getClass()) {
+      return false;
+    } else {
+      User other = (User)obj;
+      if (this.id != other.id) {
+        return false;
+      } else {
+        return Objects.equals(this.nom, other.nom);
+      }
+    }
   }
 }
