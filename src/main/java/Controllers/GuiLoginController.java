@@ -21,8 +21,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import nl.captcha.Captcha;
+import javafx.embed.swing.SwingFXUtils;
 
 /**
  * FXML Controller class
@@ -44,7 +47,13 @@ public class GuiLoginController implements Initializable {
     private TextField passwordInput;
     @FXML
     private TextField emailInput;
+@FXML
+    private TextField captchaField;
+    @FXML
+    private ImageView captchaImg;
 
+    Captcha captcha;
+    Boolean captchaTest = true;
     /**
      * Initializes the controller class.
      */
@@ -57,6 +66,8 @@ public class GuiLoginController implements Initializable {
         btnLogin.setOnMouseExited(event -> {
             btnLogin.setEffect(null);
         });
+        captcha = setCaptcha();
+
     }
 
     @FXML
@@ -79,20 +90,29 @@ public class GuiLoginController implements Initializable {
         String password = passwordInput.getText();
 
         user = su.login(email, password);
-        if (user == null){
-            erreur.setText("");
-            erreur.setText("Email ou mot de passe incorrecte");
-        }
-        else{  System.out.println("connected");
-            if (user.getRole().equals(User.Role.ADMIN))
-            RouterController.navigate("../fxml/admin/AdminDashboard.fxml");
-            if (user.getRole().equals(User.Role.CLIENT))
-                RouterController.navigate("../fxml/Client/ClientDashboard.fxml");
-            if (user.getRole().equals(User.Role.VET))
-                System.out.println("Vet dashboard is not integrated yet");
-            //RouterController.navigate("../fxml/Vet/VetDashboard.fxml");
-            if (user.getRole().equals(User.Role.INSTRUCTOR))
-                System.out.println("Instructor dashboard is not integrated yet");
+        if (captcha.isCorrect(captchaField.getText())) {
+            captchaTest = true;
+
+            user = su.login(email, password);
+            if (user == null){
+                erreur.setText("Email ou mot de passe incorrecte");
+            }
+            else{
+                if (user.getRole().equals(User.Role.ADMIN))
+                    RouterController.navigate("../fxml/admin/AdminDashboard.fxml");
+                if (user.getRole().equals(User.Role.CLIENT))
+                    RouterController.navigate("../fxml/Client/ClientDashboard.fxml");
+                if (user.getRole().equals(User.Role.VET))
+                    RouterController.navigate("../fxml/Vet/VetDashboard.fxml");
+                if (user.getRole().equals(User.Role.INSTRUCTOR))
+                    System.out.println("Instructor dashboard is not integrated yet");
+
+
+            }
+        } else {
+            captchaTest = false;
+            captcha = setCaptcha();
+            erreur.setText("captcha invalid !");
 
         }
     }
@@ -110,4 +130,23 @@ public class GuiLoginController implements Initializable {
             System.out.println(ex);
         }
     }
+    public Captcha setCaptcha() {
+        Captcha captchaV = new Captcha.Builder(250, 150)
+                .addText()
+                .addBackground()
+                .addNoise()
+                // .gimp()
+                .addBorder()
+                .build();
+
+        // System.out.println(captchaV.getImage());
+        WritableImage image = SwingFXUtils.toFXImage(captchaV.getImage(), null);
+
+        captchaImg.setImage(image);
+
+
+
+        return captchaV;
+    }
+
 }

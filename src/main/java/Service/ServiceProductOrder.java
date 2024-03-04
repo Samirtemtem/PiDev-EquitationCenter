@@ -1,13 +1,9 @@
 package Service;
 
 import Entities.ProductOrder;
-import Entities.Product;
 import Utils.Datasource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,28 +13,30 @@ public class ServiceProductOrder implements IService<ProductOrder> {
 
     @Override
     public void add(ProductOrder productOrder) throws SQLException {
-        String query = "INSERT INTO product_order (id, price, qty, status, total_price, product_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO product_order (Price, Qty, Status, Product_id, Total_price,id_client) VALUES (?, ?, ?, ?, ?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, productOrder.getId());
-            stmt.setFloat(2, productOrder.getPrice());
-            stmt.setInt(3, productOrder.getQty());
-            stmt.setString(4, productOrder.getStatus());
-            stmt.setFloat(5, productOrder.getTotalPrice());
-            stmt.setInt(6, productOrder.getProduct().getId());
+            stmt.setFloat(1, productOrder.getPrice());
+            stmt.setInt(2, productOrder.getQty());
+            stmt.setString(3, productOrder.getStatus());
+            stmt.setInt(4, productOrder.getProduct_id());
+            stmt.setFloat(5, productOrder.getTotal_price());
+            stmt.setInt(6, productOrder.getId_client());
             stmt.executeUpdate();
         }
     }
 
     @Override
-    public void update(ProductOrder productOrder) throws SQLException {
-        String query = "UPDATE product_order SET price = ?, qty = ?, status = ?, total_price = ?, product_id = ? WHERE id = ?";
+    public void update(ProductOrder ProductOrder) throws SQLException {
+        String query = "UPDATE product_order SET Price = ?, Qty = ?, Status = ?, Total_price = ?,product_id = ?,id_client = ? WHERE id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setFloat(1, productOrder.getPrice());
-            stmt.setInt(2, productOrder.getQty());
-            stmt.setString(3, productOrder.getStatus());
-            stmt.setFloat(4, productOrder.getTotalPrice());
-            stmt.setInt(5, productOrder.getProduct().getId());
-            stmt.setInt(6, productOrder.getId());
+            stmt.setFloat(1, ProductOrder.getPrice() );
+            stmt.setInt(2, ProductOrder.getQty());
+            stmt.setString(3, ProductOrder.getStatus());
+            stmt.setFloat(4, ProductOrder.getTotal_price());
+            stmt.setInt(5,ProductOrder.getProduct_id());
+            stmt.setInt(6, ProductOrder.getId());
+            stmt.setInt(7, ProductOrder.getId_client());
+
             stmt.executeUpdate();
         }
     }
@@ -63,6 +61,7 @@ public class ServiceProductOrder implements IService<ProductOrder> {
                 }
             }
         }
+        // If no product order is found, return null or throw an exception
         return null;
     }
 
@@ -73,6 +72,8 @@ public class ServiceProductOrder implements IService<ProductOrder> {
         try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
+                System.out.println(rs.getFloat("Price"));
+                System.out.println(rs.getInt(5));
                 ProductOrder productOrder = createProductOrderFromResultSet(rs);
                 productOrders.add(productOrder);
             }
@@ -81,23 +82,17 @@ public class ServiceProductOrder implements IService<ProductOrder> {
     }
 
     private ProductOrder createProductOrderFromResultSet(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        float price = rs.getFloat("price");
-        int qty = rs.getInt("qty");
-        String status = rs.getString("status");
-        int productId = rs.getInt("product_id");
-
-        // Assuming you have a method to retrieve the associated Product object based on the product ID
-        Product product = getProductById(productId);
-
-        return new ProductOrder(id, price, qty, status, product);
+        ProductOrder productOrder = new ProductOrder();
+        productOrder.setId(rs.getInt("id"));
+        productOrder.setPrice(rs.getFloat("Price"));
+        productOrder.setQty(rs.getInt("Qty"));
+        productOrder.setStatus(rs.getString("Status"));
+        productOrder.setProduct_id(rs.getInt("Product_id"));
+        productOrder.setTotal_price(rs.getFloat("Total_price"));
+        productOrder.setId_client(rs.getInt("id_client"));
+        return productOrder;
     }
 
-    private Product getProductById(int id) throws SQLException {
-       ServiceProduct s = new ServiceProduct();
-
-        return s.findById(id);
-    }
 
     public void closeConnection() throws SQLException {
         if (conn != null) {

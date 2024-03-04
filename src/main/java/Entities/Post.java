@@ -22,6 +22,17 @@ public class Post {
         this.image = image;
     }
 
+    public Post(Date date, String description) {
+        this.date=date;
+        this.description=description;
+    }
+
+    public Post(int id, java.sql.Date date, String description) {
+        this.id=id;
+        this.date=date;
+        this.description=description;
+    }
+
     public int getId() {
         return id;
     }

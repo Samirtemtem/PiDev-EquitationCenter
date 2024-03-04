@@ -1,84 +1,100 @@
 package Entities;
-
 import java.util.Date;
-
 public class Complaint {
-    private int id;
-    private int userId;
-    private String complaintText;
-    private Date createdAt;
-    private String status;
-    private String priority;
+  private int id;
+  private int userId;
+  private String objet;
+  private String description;
+  private Date createdAt;
+  private String etat;
+  private String answer;
 
-    public Complaint(int id, int userId, String complaintText, Date createdAt, String status, String priority) {
-        this.id = id;
-        this.userId = userId;
-        this.complaintText = complaintText;
-        this.createdAt = createdAt;
-        this.status = status;
-        this.priority = priority;
-    }
+  public String getAnswer() {
+    return answer;
+  }
+  public void SetAnswer(String answer)
+  {
+    this.answer=answer;
+  }
 
-    public Complaint() {
+  public void setAnswer(String answer) {
+    this.answer = answer;
+  }
 
-    }
+  public Complaint()
+  {}
+  public Complaint(int id, String objet, String description, String etat,Date createdAt) {
+    this.userId = id;
+    this.objet = objet;
+    this.description = description;
+    this.createdAt = createdAt;
+    this.etat=etat;
+  }
+  public Complaint(int id, int userId, String objet, String description, String etat) {
+    this.id = id;
+    this.userId = userId;
+    this.objet = objet;
+    this.description = description;
+    this.etat = etat;
+  }
 
-    public int getId() {
-        return id;
-    }
+  public Complaint(int id, int iduser, String objet, String description, java.sql.Date createdAt, String etat) {
+    this.id=id;
+    this.userId=iduser;
+    this.objet=objet;
+    this.description=description;
+    this.createdAt=createdAt;
+    this.etat=etat;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
-        return userId;
-    }
+  public int getId() {
+    return id;
+  }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public String getComplaintText() {
-        return complaintText;
-    }
+  public int getUserId() {
+    return userId;
+  }
 
-    public void setComplaintText(String complaintText) {
-        this.complaintText = complaintText;
-    }
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
+  public String getObjet() {
+    return objet;
+  }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+  public void setObjet(String objet) {
+    this.objet = objet;
+  }
 
-    public String getStatus() {
-        return status;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getPriority() {
-        return priority;
-    }
+  public Date getCreatedAt() {
+    return createdAt;
+  }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public Complaint(int userId, String complaintText, Date createdAt, String status, String priority) {
-        this.id = id;
-        this.userId = userId;
-        this.complaintText = complaintText;
-        this.createdAt = createdAt;
-        this.status = status;
-        this.priority = priority;
-    }
+  public String getEtat() {
+    return etat;
+  }
+
+  public void setEtat(String etat) {
+    this.etat = etat;
+  }
 
 
 }

@@ -12,6 +12,32 @@ public class ServiceActivity implements IService<Activity> {
 
     private Connection conn = Datasource.getConn();
 
+    public int add(Activity activity,String id) throws SQLException {
+        String query = "INSERT INTO activity (title, TypeActivity, price, date, description, imageData) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, activity.getTitle());
+            stmt.setString(2, activity.getTypeActivity().name());
+            stmt.setDouble(3, activity.getPrice());
+            stmt.setDate(4, new java.sql.Date(activity.getDate().getTime()));
+            stmt.setString(5, activity.getDescription());
+            stmt.setBytes(6, activity.getImageData());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected == 0) {
+                throw new SQLException("Creating activity failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int activityId = generatedKeys.getInt(1);
+                    return activityId;
+                } else {
+                    throw new SQLException("Creating activity failed, no ID obtained.");
+                }
+            }
+        }
+    }
     @Override
     public void add(Activity activity) throws SQLException {
         String query = "INSERT INTO activity (Date, TypeActivity, Title, Description, Price, ImageData) VALUES (?, ?, ?, ?, ?, ?)";

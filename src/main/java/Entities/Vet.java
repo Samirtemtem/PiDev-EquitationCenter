@@ -6,25 +6,28 @@ public class Vet {
 
     private int id;
     private String name;
-    private String Email;
+
     private String Password;
     private String email;
     private Date dateJoined;
-
-    public Vet(int id, String name, String email, String password, String email1, Date dateJoined) {
+    public Vet(int id, String name, String password, String email1, Date dateJoined) {
         this.id = id;
         this.name = name;
-        Email = email;
+
         Password = password;
         this.email = email1;
         this.dateJoined = dateJoined;
     }
-    public Vet(String name, String email, String password, String email1, Date dateJoined) {
+    public Vet(String name,  String password, String email1, Date dateJoined) {
         this.name = name;
-        Email = email;
+
         Password = password;
         this.email = email1;
         this.dateJoined = dateJoined;
+    }
+
+    public Vet() {
+
     }
 
     public String getPassword() {

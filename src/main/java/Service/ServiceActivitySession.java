@@ -105,7 +105,7 @@ public class ServiceActivitySession implements IService<ActivitySession> {
         } catch (SQLException e) {
             e.printStackTrace(); // Print the stack trace for debugging
         }
-
+        System.out.println(activitySessions);
         return activitySessions;
     }
     public List<ActivitySession> readAllActivitySessions(int activityID) {
@@ -147,6 +147,23 @@ public class ServiceActivitySession implements IService<ActivitySession> {
             e.printStackTrace();
         }
         return activitySessions;
+    }
+    public String getActivityNameByActivitySessionID(int activitySessionID) {
+        String activityName = null;
+        String query = "SELECT a.Title FROM activity a " +
+                "JOIN ActivitySession s ON a.id = s.ActivityID " +
+                "WHERE s.id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, activitySessionID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    activityName = rs.getString("Title");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return activityName;
     }
 
 }

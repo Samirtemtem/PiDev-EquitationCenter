@@ -11,12 +11,8 @@ public class MedicalVisit {
     private String description;
     private Date visitDate;
 
-    public MedicalVisit(int id,int idHorse, int idVet, String description, Date visitDate) {
-        this.id = id;
-        this.idHorse = idHorse;
-        this.idVet = idVet;
-        this.description = description;
-        this.visitDate = visitDate;
+    public MedicalVisit() {
+
     }
 
     public MedicalVisit(int idHorse, int idVet, String description, Date visitDate) {
@@ -24,6 +20,14 @@ public class MedicalVisit {
         this.idVet = idVet;
         this.description = description;
         this.visitDate = visitDate;
+    }
+
+    public MedicalVisit(int medicalVisitID, int horseId, int vetId, String description, java.sql.Date date) {
+        this.id=medicalVisitID;
+        this.idHorse = horseId;
+        this.idVet = vetId;
+        this.description = description;
+        this.visitDate = date;
     }
 
     public int getIdHorse() {

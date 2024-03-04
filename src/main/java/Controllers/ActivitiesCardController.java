@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -35,20 +36,13 @@ public class ActivitiesCardController {
     @FXML
     private Button reservebtn;
 
-    // Method to set attributes of the ActivitiesCard based on an Activity object
     public void setActivity(Activity activity) {
         // Set image
         if (activity.getImageData() != null) {
             Image img = new Image(new ByteArrayInputStream(activity.getImageData()));
             image.setImage(img);
-        } else {
-            // Set default image or placeholder if no image data
-            // Example:
-            // Image img = new Image(getClass().getResourceAsStream("/path/to/default_image.png"));
-            // image.setImage(img);
         }
 
-        // Set title
         Title.setText(activity.getTitle());
         ServiceActivitySession serviceActivitySession = new ServiceActivitySession();
         List<ActivitySession> activitySessions = serviceActivitySession.readAllActivitySessions(activity.getId());
@@ -57,7 +51,6 @@ public class ActivitiesCardController {
         // Set price
         Price.setText(String.valueOf(activity.getPrice()));
 
-        // You can add more attributes if needed, such as description, buttons, etc.
     }
 
     private String formatWeekdays(List<ActivitySession> activitySessions) {
@@ -66,7 +59,6 @@ public class ActivitiesCardController {
             String weekday = getWeekdayAsString(session.getWeekday());
             weekdaysBuilder.append(weekday).append(", ");
         }
-        // Remove the last comma and space
         if (weekdaysBuilder.length() > 2) {
             weekdaysBuilder.setLength(weekdaysBuilder.length() - 2);
         }
@@ -99,5 +91,8 @@ public class ActivitiesCardController {
         // Add action for reserve button, if needed
     }
 
-    // You can add more methods for handling other actions, if needed
+    public void goToLogn(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/Login/Login.fxml");
+    }
+
 }

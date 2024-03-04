@@ -90,19 +90,19 @@
                 </JFXComboBox>
 
                 <Label layoutX="581.0" layoutY="110.0" text=":">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="581.0" layoutY="148.0" text=":">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <Button layoutX="555.0" layoutY="193.0" mnemonicParsing="false" onAction="#AddSession" text="Ajouter séance" />
-            <Label layoutX="440.0" layoutY="78.0" prefHeight="17.0" prefWidth="42.0" text="Jour:" />
-            <Label layoutX="440.0" layoutY="119.0" prefHeight="17.0" prefWidth="42.0" text="Début:" />
-            <Label layoutX="440.0" layoutY="157.0" prefHeight="17.0" prefWidth="42.0" text="Fin: " />
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+                <Label layoutX="581.0" layoutY="148.0" text=":">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+                <Button layoutX="555.0" layoutY="193.0" mnemonicParsing="false" onAction="#AddSession" text="Ajouter séance" />
+                <Label layoutX="440.0" layoutY="78.0" prefHeight="17.0" prefWidth="42.0" text="Jour:" />
+                <Label layoutX="440.0" layoutY="119.0" prefHeight="17.0" prefWidth="42.0" text="Début:" />
+                <Label layoutX="440.0" layoutY="157.0" prefHeight="17.0" prefWidth="42.0" text="Fin: " />
 
             </children>
         </Pane>

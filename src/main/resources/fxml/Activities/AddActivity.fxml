@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -40,9 +39,6 @@
                         <Font size="18.0" />
                     </font>
                 </TextField>
-                <ComboBox fx:id="Type" layoutX="394.0" layoutY="97.0" prefHeight="50.0" prefWidth="295.0" promptText="Sélectionner le type" style="-fx-background-radius: 7;">
-
-                </ComboBox>
                 <Label fx:id="nomLabel" layoutX="92.0" layoutY="289.0" prefHeight="27.0" prefWidth="236.0" textFill="RED">
                     <font>
                         <Font size="18.0" />
@@ -69,6 +65,8 @@
                         <Font name="System Bold" size="19.0" />
                     </font>
                 </Label>
+
+
                 <Label layoutX="92.0" layoutY="227.0" text="Titre">
                     <font>
                         <Font name="System Bold" size="19.0" />
@@ -108,6 +106,18 @@
                     </FXCollections>
                 </items>
             </JFXComboBox>
+            <JFXComboBox fx:id="userComboBox" layoutX="679.0" layoutY="81.0" prefHeight="25.0" prefWidth="130.0" />
+            <JFXComboBox fx:id="horseComboBox" layoutX="683.0" layoutY="141.0" prefHeight="25.0" prefWidth="117.0" />
+            <Label layoutX="564.0" layoutY="70.0" prefHeight="50.0" prefWidth="102.0" style="-fx-background-radius: 5px;" text="Instructeur">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="563.0" layoutY="128.0" prefHeight="50.0" prefWidth="109.0" style="-fx-background-radius: 5px;" text="Chéval">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
         <ImageView fx:id="btnReturn" fitHeight="44.0" fitWidth="48.0" layoutX="14.0" layoutY="20.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">

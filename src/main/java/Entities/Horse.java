@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Horse {
 
-    private int id;
+    public int id;
     private String name;
     private Date datePension;
     private String breed;
@@ -17,6 +17,25 @@ public class Horse {
         this.breed = breed;
         this.isAvailable = isAvailable;
     }
+    public Horse() {
+
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
 
     public Horse(String name, Date datePension, String breed, Boolean isAvailable) {
         this.name = name;
@@ -25,9 +44,7 @@ public class Horse {
         this.isAvailable = isAvailable;
     }
 
-    public int getId() {
-        return id;
-    }
+
 
     public void setId(int id) {
         this.id = id;
@@ -51,6 +68,15 @@ public class Horse {
 
     public Boolean getIsAvailable() {
         return isAvailable;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setIsAvailable(Boolean available) {

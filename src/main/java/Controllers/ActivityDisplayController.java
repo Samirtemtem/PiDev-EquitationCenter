@@ -89,17 +89,9 @@ public class ActivityDisplayController {
         }
     }
     private void openActivityDetails(Activity activity) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Client/ActivityDetails.fxml"));
-        Parent root = loader.load();
 
+        RouterController.navigate("/fxml/Client/ActivityDetails.fxml",activity.getId());
         // Pass the Activity object to the ActivityDetailsController
-        ActivityDetails controller = loader.getController();
-        controller.initData(activity);
 
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Activity Details");
-        stage.show();
     }
 }

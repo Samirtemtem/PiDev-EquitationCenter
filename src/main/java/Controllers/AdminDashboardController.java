@@ -19,10 +19,12 @@ public class AdminDashboardController {
     }
 
     public void goToNavigate(ActionEvent actionEvent) {
-        RouterController.navigate("/fxml/Admin/AdminDashboard.fxml");
+        RouterController.navigate("/fxml/Client/ClientDashboard.fxml");
     }
 
     public void goToUsers(MouseEvent mouseEvent) {
+            RouterController router=new RouterController();
+            router.navigate("/fxml/Admin/UsersCrud.fxml");
     }
 
     public void goToActivities(MouseEvent mouseEvent) {
@@ -33,5 +35,17 @@ public class AdminDashboardController {
 
     public void GoToActivitySessions(MouseEvent mouseEvent) {
         RouterController.navigate("../fxml/ActivitySession/ActivitySessionCRUD.fxml");
+    }
+
+    public void goToCommands(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/ProductCRUD.fxml");
+    }
+
+    public void goToArticles(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/PostCrud.fxml");
+    }
+
+    public void goToReclamations(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/Admin/CrudComplaints.fxml");
     }
 }

@@ -8,21 +8,70 @@ public class User {
 
     }
 
+    public User(int userId, String email, String password, String nom, String prenom, String addres, String numTel, String confirmPass, Date dateJoined, Role role, byte[] imageData) {
+    this.id=userId;
+    this.email=email;
+    this.password=password;
+    this.name=nom;
+    this.lastName=prenom;
+    this.address=addres;
+    this.num_tel=numTel;
+    this.dateJoined=dateJoined;
+    this.role=role;
+    this.imageData=imageData;
+
+    }
+
+    public User(int userId, String email, String password, String nom, String prenom, String addres, String numTel, String confirmPass, Date dateJoined, byte[] imageData) {
+    this.id=userId;
+    this.email=email;
+    this.password=password;
+    this.name=nom;
+    this.lastName=prenom;
+    this.address=addres;
+    this.num_tel=numTel;
+    this.dateJoined=dateJoined;
+    this.imageData=imageData;
+    }
+
     public enum Role {
         ADMIN,
         CLIENT,
         INSTRUCTOR,
         VET
     }
-
+    @Override
+    public String toString() {
+        return name;
+    }
     private int id;
     private String email;
     private String password;
     private String name;
+    private String lastName;
+    private String address;
+
     private Date dateJoined;
     private Image profileImage;
     private Role role;
-
+    private String num_tel;
+    private byte[] imageData;
+    public User(int id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+    public User(String email, String password, String nom, String prenom, String address, String num_tel , Date dateJoined, Role role, byte[] imageData) {
+        this.email = email;
+        this.password = password;
+        this.name = nom;
+        this.lastName = prenom;
+        this.address = address;
+        this.num_tel = num_tel;
+        this.dateJoined = dateJoined;
+        this.role = role;
+        this.imageData = imageData;
+    }
     public User(int id, String email, String password, String name, Date dateJoined, Image profileImage, Role role) {
         this.id = id;
         this.email = email;
@@ -31,6 +80,51 @@ public class User {
         this.dateJoined = dateJoined;
         this.profileImage = profileImage;
         this.role = role;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNum_tel() {
+        return num_tel;
+    }
+
+    public void setNum_tel(String num_tel) {
+        this.num_tel = num_tel;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public User(int id, String email, String password, String nom, String prenom, String address, String num_tel , Date dateJoined, Role role, byte[] imageData) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = nom;
+        this.lastName = prenom;
+        this.address = address;
+        this.num_tel = num_tel;
+        this.dateJoined = dateJoined;
+        this.role = role;
+        this.imageData = imageData;
     }
     public User( String email, String password, String name, Date dateJoined, Image profileImage, Role role) {
         this.email = email;

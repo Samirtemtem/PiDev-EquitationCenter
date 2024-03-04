@@ -20,20 +20,29 @@ public class ClientDashboardController {
         }
 
         public void goToNavigate(ActionEvent actionEvent) {
-            RouterController.navigate("/fxml/Admin/AdminDashboard.fxml");
+            RouterController.navigate("/fxml/Client/ClientDashboard.fxml");
         }
-
+    public void goToReclamations(MouseEvent mouseEvent) {
+        RouterController router=new RouterController();
+        router.navigate("/fxml/Client/Complaint.fxml");
+    }
+        public void goToCommands(MouseEvent event)
+        {
+            RouterController.navigate("/fxml/Client/ProductsList.fxml");
+        }
         public void goToUsers(MouseEvent mouseEvent) {
         }
 
         public void goToActivities(MouseEvent mouseEvent) {
-            RouterController.navigate("../fxml/Activities/ActivitiesCRUD.fxml");
+            RouterController.navigate("../fxml/Client/ActivitiesList.fxml");
         }
-
-
 
         public void GoToActivitySessions(MouseEvent mouseEvent) {
-            RouterController.navigate("../fxml/ActivitySession/ActivitySessionCRUD.fxml");
+            RouterController.navigate("../fxml/Client/ActivitiesList.fxml");
         }
+
+    public void goToProfile(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/Client/ModifiyProfil.fxml");
     }
+}
 

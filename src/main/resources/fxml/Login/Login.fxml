@@ -9,10 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="970.0" style="-fx-background-color: #fbf3e4;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GuiLoginController">
+<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="970.0" style="-fx-background-color: #fbf3e4;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GuiLoginController">
     <stylesheets>
         <URL value="@../guilogin.css" />
     </stylesheets>
@@ -22,7 +23,7 @@
                 <ImageView fx:id="logoImageView" fitHeight="434.0" fitWidth="589.0" layoutX="210.0" layoutY="44.0" opacity="0">
                     <!-- Set the image source for your logo -->
                     <image>
-                        <Image url="@../../assets/logo.png" />
+                        <Image url="@../assets/logo.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="93.0" layoutY="165.0" text="Connecter à votre compte">
@@ -31,8 +32,8 @@
                     </font>
                 </Label>
 
-                <Button fx:id="btnLogin" layoutX="138.0" layoutY="432.0" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="148.0" style="-fx-background-color: #4b3e3e; -fx-background-radius: 8;" text="Se connecter" textFill="WHITE">
-                <font>
+                <Button fx:id="btnLogin" layoutX="138.0" layoutY="504.0" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="148.0" style="-fx-background-color: #4b3e3e; -fx-background-radius: 8;" text="Se connecter" textFill="WHITE">
+                    <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                     <effect>
@@ -42,12 +43,17 @@
                         <URL value="@../guilogin.css" />
                     </stylesheets>
                 </Button>
-                <TextField fx:id="emailInput" layoutX="65.0" layoutY="243.0" prefHeight="60.0" prefWidth="295.0" promptText="Email" style="-fx-background-radius: 7;">
+                <ImageView fitHeight="105.0" fitWidth="166.0" layoutX="138.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/logo.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="emailInput" layoutX="65.0" layoutY="243.0" prefHeight="50.0" prefWidth="295.0" promptText="Email" style="-fx-background-radius: 7;">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </TextField>
-                <Label fx:id="erreur" layoutX="73.0" layoutY="492.0" prefHeight="27.0" prefWidth="282.0" textFill="#ff0404">
+                <Label fx:id="erreur" layoutX="73.0" layoutY="455.0" prefHeight="27.0" prefWidth="282.0" textFill="#ff0404">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -57,16 +63,22 @@
                         <Font name="System Bold" size="21.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="passwordInput" layoutX="65.0" layoutY="322.0" prefHeight="60.0" prefWidth="295.0" promptText="Mot de passe" style="-fx-background-radius: 7;">
+                <PasswordField fx:id="passwordInput" layoutX="65.0" layoutY="303.0" prefHeight="50.0" prefWidth="295.0" promptText="Mot de passe" style="-fx-background-radius: 7;">
                     <font>
                         <Font size="21.0" />
                     </font>
                 </PasswordField>
-              <ImageView fx:id="btnReturn" fitHeight="138.0" fitWidth="148.0" layoutX="141.0" layoutY="14.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                      <Image url="@../../assets/logo.png" />
-                  </image>
-              </ImageView>
+                <ImageView fx:id="btnReturn" fitHeight="138.0" fitWidth="148.0" layoutX="135.0" layoutY="14.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/logo.png" />
+                    </image>
+                </ImageView>
+                <HBox alignment="CENTER" layoutX="65.0" layoutY="366.0" prefHeight="74.0" prefWidth="295.0">
+                    <children>
+                        <ImageView fx:id="captchaImg" fitHeight="88.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="captchaField" prefHeight="49.0" prefWidth="186.0" />
+                    </children>
+                </HBox>
             </children>
         </Pane>
     </children>

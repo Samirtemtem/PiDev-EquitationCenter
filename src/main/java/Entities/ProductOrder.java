@@ -1,79 +1,142 @@
 package Entities;
 
-import java.util.*;
-
+/**
+ *
+ */
 public class ProductOrder {
 
-	private int id;
-	private Float price;
-	private int qty;
-	private String status;
-	private Float totalPrice;
-	private Product product;
+	public ProductOrder(Float price, int qty, String status, int product_id, int id_client, Float total_price) {
+		Price = price;
+		Qty = qty;
+		Status = status;
+		Product_id = product_id;
+		this.id_client = id_client;
+		Total_price = total_price;
+	}
 
-	public ProductOrder(int id, Float price, int qty, String status, Product product) {
-		this.id = id;
-		this.price = price;
-		this.qty = qty;
-		this.status = status;
-		this.product = product;
-		this.totalPrice = calculateTotalPrice();
+	/**
+	 *
+	 */
+	public int Id;
+
+	/**
+	 *
+	 */
+	public Float Price;
+
+	/**
+	 *
+	 */
+	public int Qty;
+
+	/**
+	 *
+	 */
+	public String Status;
+
+	/**
+	 *
+	 */
+	public int Product_id;
+
+	/**
+	 *
+	 */
+	public int id_client; // New attribute
+
+	/**
+	 *
+	 */
+	public Float Total_price;
+
+	public ProductOrder(int id, Float price, int qty, String status, int product_id, float total_Price, int id_client) {
+		Id = id;
+		Price = price;
+		Qty = qty;
+		Status = status;
+		Product_id = product_id;
+		this.id_client = id_client;
+		Total_price = total_Price;
 	}
-	public ProductOrder(Float price, int qty, String status, Product product) {
-		this.price = price;
-		this.qty = qty;
-		this.status = status;
-		this.product = product;
-		this.totalPrice = calculateTotalPrice();
+
+	public ProductOrder(int id, Float price, int qty, String status, int product_id, int id_client, Float total_price) {
+		Id = id;
+		Price = price;
+		Qty = qty;
+		Status = status;
+		Product_id = product_id;
+		this.id_client = id_client;
+		Total_price = total_price;
 	}
+
+	public ProductOrder(Float price, int qty, String status, int product_id, Float total_price) {
+		Price = price;
+		Qty = qty;
+		Status = status;
+		Product_id = product_id;
+		this.id_client = id_client;
+		Total_price = total_price;
+	}
+
+	public ProductOrder() {
+
+	}
+
+
 
 	public int getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		Id = id;
 	}
 
 	public Float getPrice() {
-		return price;
+		return Price;
 	}
 
-	public void setPrice(Float price) {
-		this.price = price;
-		this.totalPrice = calculateTotalPrice();
+	public void setPrice(Float Price) {
+		this.Price = Price;
 	}
 
 	public int getQty() {
-		return qty;
+		return Qty;
 	}
 
 	public void setQty(int qty) {
-		this.qty = qty;
-		this.totalPrice = calculateTotalPrice();
+		Qty = qty;
 	}
 
 	public String getStatus() {
-		return status;
+		return Status;
 	}
 
 	public void setStatus(String status) {
-		this.status = status;
+		Status = status;
 	}
 
-	public Float getTotalPrice() {
-		return totalPrice;
+	public int getProduct_id() {
+		return Product_id;
 	}
 
-	public Product getProduct() {
-		return product;
+	public void setProduct_id(int Product_id) {
+		this.Product_id = Product_id;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public int getId_client() {
+		return id_client;
 	}
 
-	private Float calculateTotalPrice() {
-		return price * qty;
+	public void setId_client(int id_client) {
+		this.id_client = id_client;
+	}
+
+	public Float getTotal_price() {
+		return Total_price;
+	}
+
+	public void setTotal_price(Float totalPrice) {
+		Total_price = totalPrice;
 	}
 }

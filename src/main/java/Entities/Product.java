@@ -1,42 +1,86 @@
 package Entities;
 
-import java.util.*;
-
 /**
- * 
+ *
  */
 public class Product {
 
 	/**
 	 * Default constructor
 	 */
-	public Product() {
+	public Product(String name, String description, double price, int stockQty) {
+		this.Name=name;
+		this.Description=description;
+		this.Price=(float)price;
+		this.setStockQty(stockQty);
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public int id;
 
 	/**
-	 * 
+	 *
 	 */
 	public String Name;
 
 	/**
-	 * 
+	 *
 	 */
 	public Float Price;
 
 	/**
-	 * 
+	 *
 	 */
 	public String Description;
 
 	/**
-	 * 
+	 *
 	 */
 	public int StockQty;
+
+	/**
+	 * Blob image data
+	 */
+	public byte[] blobImage;
+
+	public Product(int productID, String name, String description, double price, int stockQty) {
+		this.id = productID;
+		Name = name;
+		Price = (float) price;
+		Description = description;
+		StockQty = stockQty;
+	}
+
+	@Override
+	public String toString() {
+		return Name;
+	}
+
+	public Product(int id, String name, Float price, String description, int stockQty, byte[] blobImage) {
+		this.id = id;
+		Name = name;
+		Price = price;
+		Description = description;
+		StockQty = stockQty;
+		this.blobImage = blobImage;
+	}
+
+	public Product(String name, String description, float price, int stockQty, byte[] blobImage) {
+		Name = name;
+		Price = price;
+		Description = description;
+		StockQty = stockQty;
+		this.blobImage = blobImage;
+	}
+
+	public Product(String name, Float price, String description, int stockQty) {
+		Name = name;
+		Price = price;
+		Description = description;
+		StockQty = stockQty;
+	}
 
 	public Product(int id, String name, Float price, String description, int stockQty) {
 		this.id = id;
@@ -45,11 +89,18 @@ public class Product {
 		Description = description;
 		StockQty = stockQty;
 	}
-	public Product(String name, Float price, String description, int stockQty) {
-		Name = name;
-		Price = price;
-		Description = description;
-		StockQty = stockQty;
+
+	public Product() {
+
+	}
+
+	public Product(int productID, String name, String description, double price, int stockQty, byte[] blobImage) {
+		this.id = productID;
+		this.Name = name;
+		this.setDescription(description);
+		this.Price = (float) price;
+		this.setStockQty(stockQty);
+		this.blobImage = blobImage;
 	}
 
 	public int getId() {
@@ -92,6 +143,11 @@ public class Product {
 		StockQty = stockQty;
 	}
 
+	public byte[] getBlobImage() {
+		return blobImage;
+	}
 
-
+	public void setBlobImage(byte[] blobImage) {
+		this.blobImage = blobImage;
+	}
 }

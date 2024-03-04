@@ -3,10 +3,12 @@ package Controllers;
 import Entities.Activity;
 import Entities.ActivitySession;
 import Entities.UserActivity;
+import Service.ServiceActivity;
 import Service.ServiceActivitySession;
 import Service.UserActivityService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,7 +21,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ActivityDetails {
+public class ActivityDetails implements InitializableController {
 
     public Label activitySessionsLabel;
     @FXML
@@ -40,8 +42,9 @@ public class ActivityDetails {
         private Activity activity;
         private List<ActivitySession> activitySession;
         private ServiceActivitySession serviceActivitySession=new ServiceActivitySession();
-        public void initialize() {
+    private Integer activityId;
 
+    public void initialize() throws SQLException {
             // Populate the activity details
             if (activity != null) {
                 activityName.setText("Titre: "+activity.getTitle());
@@ -83,10 +86,12 @@ public class ActivityDetails {
     }
 
     public void goToLogn(MouseEvent mouseEvent) {
+        RouterController.navigate("/fxml/Login/Login.fxml");
     }
 
-    public void initData(Activity activity) {
-            this.activity=activity;
+    public void initData(int activity) throws SQLException {
+            ServiceActivity sa=new ServiceActivity();
+            this.activity=sa.findById(activity);
             initialize();
     }
     private void loadActivitySessions() {
@@ -133,5 +138,16 @@ public class ActivityDetails {
     }
     public void showInformationAlert(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void init(Integer Id) {
+        this.activityId=Id;
+        try{
+            initData(Id);
+        }catch(SQLException e)
+        {
+            System.out.println(e.getErrorCode());
+        }
     }
 }

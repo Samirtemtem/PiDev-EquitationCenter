@@ -1,8 +1,7 @@
 package Controllers;
 
-import Entities.Activity;
-import Entities.ActivityType;
-import Service.ServiceActivity;
+import Entities.*;
+import Service.*;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class AddActivityController {
 
@@ -34,6 +34,14 @@ public class AddActivityController {
 
     @FXML
     private DatePicker Date;
+    @FXML
+    private JFXComboBox<Horse> horseComboBox;
+
+    @FXML
+    private JFXComboBox<User> userComboBox;
+
+    private ServiceHorse serviceHorse = new ServiceHorse();
+    private ServiceUser serviceUser = new ServiceUser();
 
     @FXML
     private TextArea Description;
@@ -51,6 +59,8 @@ public class AddActivityController {
     private JFXComboBox<ActivityType> Type;
     @FXML
     public void initialize() {
+        populateHorseComboBox();
+        populateUserComboBox();
         ObservableList<ActivityType> activityTypes = FXCollections.observableArrayList(ActivityType.values());
         System.out.println(ActivityType.values().toString());
         Type.setItems(activityTypes);
@@ -62,6 +72,28 @@ public class AddActivityController {
             }
         });
     }
+    private void populateHorseComboBox() {
+        List<Horse> horses = null;
+        try {
+            horses = serviceHorse.ReadAvailableHorses();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<Horse> horseList = FXCollections.observableArrayList(horses);
+        horseComboBox.setItems(horseList);
+    }
+
+    private void populateUserComboBox() {
+        List<User> users = null;
+        try {
+            users = serviceUser.ReadInstructors();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ObservableList<User> userList = FXCollections.observableArrayList(users);
+        userComboBox.setItems(userList);
+    }
+
     public boolean validateInputsAndProceed() {
         if (
         selectedImageFile == null) {
@@ -134,11 +166,26 @@ public class AddActivityController {
     @FXML
     public void AddActivity(ActionEvent actionEvent) {
         if(!validateInputsAndProceed()) return;
+        Horse selectedHorse = horseComboBox.getValue();
+        User selectedUser = userComboBox.getValue();
+
+        if (selectedHorse == null) {
+            showAlert("Veuillez sélectionner un cheval.");
+            return;
+        }
+
+        if (selectedUser == null) {
+            showAlert("Veuillez sélectionner un utilisateur.");
+            return;
+        }
+        ServiceHorseActivity serviceHorseActivity=new ServiceHorseActivity();
+        UserActivityService userActivityService=new UserActivityService();
         String title = Title.getText();
         ActivityType type = Type.getValue();
         double price = Double.parseDouble(Price.getText());
         Date date = java.sql.Date.valueOf(Date.getValue());
         String description = Description.getText();
+
         try {
             byte[] imageData = null;
             if (selectedImageFile != null) {
@@ -154,7 +201,11 @@ public class AddActivityController {
             activity.setDescription(description);
             activity.setImageData(imageData);
 
-            serviceActivity.add(activity);
+            int id=serviceActivity.add(activity,"return id");
+            HorseActivity horseActivity=new HorseActivity(selectedHorse.getId(),id);
+            UserActivity userActivity=new UserActivity(selectedUser.getId(), id,"",0);
+            userActivityService.add(userActivity);
+            serviceHorseActivity.add(horseActivity);
             showSuccessMessage("Nouvelle activitée ajouté avec succées");
             returnTo(actionEvent);
 

@@ -111,103 +111,103 @@ public class AddActivitySessionController {
     }
 
     @FXML
-        void initialize() {
-            idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-            startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-            endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-            dayColumn.setCellValueFactory(new PropertyValueFactory<>("weekdayAsString"));
+    void initialize() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        startTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        dayColumn.setCellValueFactory(new PropertyValueFactory<>("weekdayAsString"));
 
-            actionsColumn.setCellFactory(param -> new TableCell<>() {
-                private final Button deleteButton = new Button("Supprimer");
-                {
-                    deleteButton.setOnAction(event -> {
-                        ActivitySession session = getTableView().getItems().get(getIndex());
-                        if (existingSessions.contains(session)) {
-                            existingSessions.remove(session);
-                            deletedSessions.add(session);
-                        }
-                        sessionList.remove(session);
-                        sessionTableView.refresh();
-                    });
-                }
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(deleteButton);
+        actionsColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Supprimer");
+            {
+                deleteButton.setOnAction(event -> {
+                    ActivitySession session = getTableView().getItems().get(getIndex());
+                    if (existingSessions.contains(session)) {
+                        existingSessions.remove(session);
+                        deletedSessions.add(session);
                     }
-                }
-            });
-            sessionTableView.setItems(sessionList);
-
-            SpinnerValueFactory<Integer> hourFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0, 1);
-            hourFactory.setConverter(new SpinnerIntegerStringConverter(true));
-            hourSpinner.setValueFactory(hourFactory);
-            configureSpinnerEditor(hourSpinner);
-
-            SpinnerValueFactory<Integer> minuteFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 1);
-            minuteFactory.setConverter(new SpinnerIntegerStringConverter(true));
-            minuteSpinner.setValueFactory(minuteFactory);
-            configureSpinnerEditor(minuteSpinner);
-
-            SpinnerValueFactory<Integer> endHourFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0, 1);
-            endHourFactory.setConverter(new SpinnerIntegerStringConverter(true));
-            endHourSpinner.setValueFactory(endHourFactory);
-            configureSpinnerEditor(endHourSpinner);
-
-            SpinnerValueFactory<Integer> endMinuteFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 1);
-            endMinuteFactory.setConverter(new SpinnerIntegerStringConverter(true));
-            endMinuteSpinner.setValueFactory(endMinuteFactory);
-            configureSpinnerEditor(endMinuteSpinner);
-            try {
-                System.out.println("############################CATCH ENTRY##############################");
-                List<Activity> activities = activityService.ReadAll();
-                ActivityID.setCellFactory(param -> new ListCell<Activity>() {
-                    @Override
-                    protected void updateItem(Activity item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty || item == null) {
-                            setText(null);
-                        } else {
-                            setText(item.getId() + " - " + item.getTitle());
-                        }
-                    }
-                });
-
-                ObservableList<Activity> activityOptions = FXCollections.observableArrayList(activities);
-                ActivityID.setItems(activityOptions);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            ActivityID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null) {
-                    ServiceActivitySession sessionService=new ServiceActivitySession();
-                    List<ActivitySession> sessions = sessionService.readAllActivitySessions(newValue.getId());
-                    existingSessions = sessions;
-                    sessionList.clear();
-
-                    sessionList.addAll(sessions);
-
+                    sessionList.remove(session);
                     sessionTableView.refresh();
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+        sessionTableView.setItems(sessionList);
+
+        SpinnerValueFactory<Integer> hourFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0, 1);
+        hourFactory.setConverter(new SpinnerIntegerStringConverter(true));
+        hourSpinner.setValueFactory(hourFactory);
+        configureSpinnerEditor(hourSpinner);
+
+        SpinnerValueFactory<Integer> minuteFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 1);
+        minuteFactory.setConverter(new SpinnerIntegerStringConverter(true));
+        minuteSpinner.setValueFactory(minuteFactory);
+        configureSpinnerEditor(minuteSpinner);
+
+        SpinnerValueFactory<Integer> endHourFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0, 1);
+        endHourFactory.setConverter(new SpinnerIntegerStringConverter(true));
+        endHourSpinner.setValueFactory(endHourFactory);
+        configureSpinnerEditor(endHourSpinner);
+
+        SpinnerValueFactory<Integer> endMinuteFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 1);
+        endMinuteFactory.setConverter(new SpinnerIntegerStringConverter(true));
+        endMinuteSpinner.setValueFactory(endMinuteFactory);
+        configureSpinnerEditor(endMinuteSpinner);
+        try {
+            System.out.println("############################CATCH ENTRY##############################");
+            List<Activity> activities = activityService.ReadAll();
+            ActivityID.setCellFactory(param -> new ListCell<Activity>() {
+                @Override
+                protected void updateItem(Activity item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getId() + " - " + item.getTitle());
+                    }
                 }
             });
-        }
 
-        @FXML
-        void returnTo() {
+            ObservableList<Activity> activityOptions = FXCollections.observableArrayList(activities);
+            ActivityID.setItems(activityOptions);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ActivityID.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ServiceActivitySession sessionService=new ServiceActivitySession();
+                List<ActivitySession> sessions = sessionService.readAllActivitySessions(newValue.getId());
+                existingSessions = sessions;
+                sessionList.clear();
+
+                sessionList.addAll(sessions);
+
+                sessionTableView.refresh();
+            }
+        });
+    }
+
+    @FXML
+    void returnTo() {
         RouterController.navigate("/fxml/ActivitySession/ActivitySessionCRUD.fxml");
-        }
+    }
 
-        @FXML
-        void AddActivitySession() {
-         save();
-        }
+    @FXML
+    void AddActivitySession() {
+        save();
+    }
 
 
 
@@ -293,4 +293,3 @@ public class AddActivitySessionController {
 
 
 }
-
