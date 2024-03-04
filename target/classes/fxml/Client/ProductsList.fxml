@@ -49,7 +49,7 @@
         </ImageView>
         <AnchorPane layoutX="75.0" layoutY="98.0" prefHeight="523.0" prefWidth="886.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../guiadmin.css">
             <children>
-                <fx:include layoutX="250.0" layoutY="150.0" prefHeight="400" prefWidth="700" source="ProductItem.fxml" AnchorPane.leftAnchor="148.0" AnchorPane.topAnchor="90.0" />
+                <fx:include source="../../ProductsListNew.fxml"/>
 
                 <Label layoutX="305.0" layoutY="6.0" text="Interface Client">
                     <font>
@@ -61,6 +61,7 @@
                         <Font name="System Bold" size="25.0" />
                     </font>
                 </Label>
+
             </children>
         </AnchorPane>
     </children>

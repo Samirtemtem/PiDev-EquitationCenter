@@ -34,7 +34,7 @@
                                     <children>
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                             <children>
-                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#addToFavoriteList" prefHeight="40.0" prefWidth="40.0" styleClass="productDetails__favBtn" />
+                                                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="40.0" prefWidth="40.0" styleClass="productDetails__favBtn" />
                                             </children>
                                         </HBox>
                                     </children></HBox>

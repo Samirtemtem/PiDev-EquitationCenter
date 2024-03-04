@@ -42,6 +42,7 @@
               <TableColumn fx:id="etat" prefWidth="75.0" text="Etat" />
               <TableColumn fx:id="objet" prefWidth="75.0" text="Object" />
               <TableColumn fx:id="description" prefWidth="75.0" text="Description" />
+                  <TableColumn fx:id="answer" prefWidth="75.0" text="Réponse" />
             </columns>
           </TableView>
           <Button fx:id="btnsupprimerReclamation" disable="true" layoutX="169.0" layoutY="382.0" mnemonicParsing="false" onAction="#supprimerReclamation" prefHeight="36.0" prefWidth="166.0" style="-fx-background-color:  #B58D3F;" text="Supprimer" textFill="WHITE">

@@ -10,8 +10,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import Entities.Activity;
+import Entities.ActivitySession;
 import Entities.User;
+import Entities.UserActivity;
 import Service.ServiceActivity;
+import Service.ServiceActivitySession;
+import Service.UserActivityService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,6 +46,8 @@ import facebook4j.FacebookException;
 
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 public class UserActivityDetailsController implements Initializable {
 
     @FXML
@@ -58,7 +65,8 @@ public class UserActivityDetailsController implements Initializable {
     public Activity activity;
     @FXML
     private Text offre;
-
+    @FXML
+    private Text sessions;
     @FXML
     private HBox offreRow;
 
@@ -105,13 +113,10 @@ public class UserActivityDetailsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
 
-
         // set product details
         ServiceActivity activityService = new ServiceActivity();
         activity = UserActivityDetailsController.activity_static;
         // System.out.println(produit);
-
-
 
 
         title.setText(activity.getTitle());
@@ -121,15 +126,63 @@ public class UserActivityDetailsController implements Initializable {
             this.img.setImage(img);
         }
 
-        // get category Name
         String type = activity.getTypeActivity().getDisplayName();
-        category.setText(type);
+        this.type.setText(type);
 
-        float prixApresOffre = 0;
 
 
         description.setText(activity.getDescription());
+        loadActivitySessions();
 
+    }
+
+    private void loadActivitySessions() {
+        if (activity != null) {
+            ServiceActivitySession serviceActivitySession=new ServiceActivitySession();
+            List<ActivitySession> activitySessions = serviceActivitySession.readAllActivitySessions(activity.getId());
+            StringBuilder sessionsText = new StringBuilder();
+
+            for (ActivitySession session : activitySessions) {
+                sessionsText.append(session.getWeekdayAsString())
+                        .append(", De ").append(session.getStartTime())
+                        .append(" à ").append(session.getEndTime())
+                        .append("\n");
+            }
+            System.out.println(sessionsText);
+            System.out.println(activitySessions);
+
+            sessions.setText(sessionsText.toString());
+        }
+    }
+    void partageFacebook(MouseEvent event) throws SQLException {
+}
+
+    public void SubscribetoActivity(MouseEvent mouseEvent) throws SQLException {
+            int userid=GuiLoginController.user.getId();
+            if(userid==0)
+                userid=1;
+
+            UserActivityService sas=new UserActivityService();
+            int found = sas.findbyuserIdandActivityId(userid,activity.getId());
+            if(found==1)
+            {
+                System.out.println("Activityuesr already found");
+                showInformationAlert("Vous etes déjà abonnée a cette activitée, Veuillez trouver une autre activité", "Erreur");
+                return;
+            }
+            UserActivity userActivity=new UserActivity();
+            userActivity.setUserId(userid);
+            userActivity.setActivityId(activity.getId());
+            userActivity.setFeedback("");
+            userActivity.setStars(0);
+            System.out.println(userActivity);
+            sas.add(userActivity);
+            System.out.println("User activity Added successfully");
+            showInformationAlert("Vous etes maintenant abonnée a cette activitée, tu dois payer vers notre centre d'equitation", "Information");
+            RouterController.navigate("/fxml/Client/ClientDashboard.fxml");
+    }
+    public void showInformationAlert(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     //@FXML

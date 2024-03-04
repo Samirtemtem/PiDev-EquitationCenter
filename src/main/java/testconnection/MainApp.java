@@ -20,7 +20,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         RouterController.setPrimaryStage(primaryStage);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Client/Home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/LoadingScreen.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

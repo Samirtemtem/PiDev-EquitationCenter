@@ -162,7 +162,7 @@ public class ControllerCrudPost {
 
                             String appId = "232528662540085";
                             String appSecret = "60988e9928012f06c205e07717bb4196";
-                            String accessTokenString = "EAADTe8xUrzUBO3mGRL9ZBcnXcIL7SCf9TpxvqmlxZC6xOsKJRFN1TZBEwZAw3PipeZB1vOWMiylsWG8iBBOXZCIZAjUcE4ZAFJH275ZCcXeIZANH5ubkyxa0Av4K779KilKsUwbNHvXCMkv4TZCSZBFtNxkkMCb8g6ToFt335CtcUdjYcLVCbF5jTTpeYSbbDkZB8OUOb8dZAYtu0fMCB0HKpOtxZBDluF8";
+                            String accessTokenString = "EAAQKui6C1xUBO4besLrTyqnfHrLYzSonXF8pJ0TWxjkJ1FyZBTMuwCbPxhcO6RvJwmFUfdvMQN7sn4DDk4hmjxD0ZBEHiSvxE1j7NzUJzULKd7A6hbgfaTL0jLtGoELdk8qklWZC1EwPnlBDMJ3gBcerjEPd2Vcjl0rGVVFXZCeUZBQ0rtlr4onptxRef79l0KMXHSZC1cjWAVJDplg28iGZAvZC6ZBiBZCKlz2B5ZBTIwZD";
 
                             Facebook facebook = new FacebookFactory().getInstance();
                             facebook.setOAuthAppId(appId, appSecret);

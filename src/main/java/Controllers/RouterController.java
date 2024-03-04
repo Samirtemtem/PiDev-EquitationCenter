@@ -113,17 +113,15 @@ public class RouterController {
             FXMLLoader loader = new FXMLLoader(RouterController.class.getResource(s));
             BorderPane root = loader.load();
 
-            FadeTransition fadeOut = new FadeTransition(TRANSITION_DURATION, primaryStage.getScene().getRoot());
-            fadeOut.setFromValue(1.0);
-            fadeOut.setToValue(0.0);
-            fadeOut.setOnFinished(event -> {
-                primaryStage.setScene(new Scene(root));
-                FadeTransition fadeIn = new FadeTransition(TRANSITION_DURATION, root);
-                fadeIn.setFromValue(0.0);
-                fadeIn.setToValue(1.0);
-                fadeIn.play();
-            });
-            fadeOut.play();
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(1000), root);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
+
+            newStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

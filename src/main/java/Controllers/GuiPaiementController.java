@@ -72,7 +72,7 @@ public class GuiPaiementController implements Initializable {
 
             // create scene
             //   stage.getIcons().add(new Image("/Images/logo.png"));
-            stage.setTitle("localisation");
+            stage.setTitle("Reçu");
             Scene scene = new Scene(webView,1000,700, Color.web("#666970"));
             stage.setScene(scene);
             // show stage

@@ -31,7 +31,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ComplaintController implements Initializable {
-  public TableColumn answer;
   @FXML
   private TableColumn<?, ?> Description;
 
@@ -62,6 +61,8 @@ public class ComplaintController implements Initializable {
 
   @FXML
   private TableColumn<Complaint, String> etatColumn;
+  @FXML
+  private TableColumn<Complaint, String> answer;
   @FXML
   private Button btnValider;
 
@@ -116,6 +117,7 @@ public class ComplaintController implements Initializable {
     createdAt.setText(recSelected.getCreatedAt().toString());
     Objet.setText(recSelected.getObjet());
     Description.setText(recSelected.getDescription());
+    answer.setText(recSelected.getAnswer());
 
   }
 
@@ -127,7 +129,7 @@ public class ComplaintController implements Initializable {
     descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     createdAtColumn.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
     etatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
-
+    answer.setCellValueFactory(new PropertyValueFactory<>("answer"));
     tableReclamation.setItems(list);
     TableColumn<Complaint, Void> actionColumn = new TableColumn<>("Action");
     actionColumn.setCellFactory(getButtonCellFactory());

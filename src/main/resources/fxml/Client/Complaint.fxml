@@ -89,6 +89,11 @@
               <PropertyValueFactory property="createdAt" />
             </cellValueFactory>
           </TableColumn>
+          <TableColumn fx:id="answer" text="réponse">
+            <cellValueFactory>
+              <PropertyValueFactory property="answer" />
+            </cellValueFactory>
+          </TableColumn>
         </columns>
 
     </TableView>
