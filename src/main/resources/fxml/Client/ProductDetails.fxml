@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProductDetails">
+    <stylesheets>
+        <URL value="@../guiadmin.css" />
+    </stylesheets>
+    <children>
+        <Pane layoutX="571.0" layoutY="12.0" prefHeight="94.0" prefWidth="394.0" style="-fx-background-radius: 20 20 0 0;" styleClass="linear-grad" stylesheets="@../guiadmin.css">
+            <children>
+                <ImageView fitHeight="76.0" fitWidth="58.0" layoutX="319.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../assets/ic_usr.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="174.0" layoutY="17.0" text="Client" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="222.0" layoutY="45.0" onMouseClicked="#goToLogn" text="Déconnecter" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="36.0" fitWidth="28.0" layoutX="192.0" layoutY="41.0" onMouseClicked="#goToLogn" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../assets/logOut.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+
+
+        <fx:include source="navbar.fxml" />
+        <ImageView fitHeight="86.0" fitWidth="154.0" layoutX="74.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../assets/logo.png" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="75.0" layoutY="93.0" prefHeight="523.0" prefWidth="886.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../guiadmin.css">
+            <children>
+
+                <AnchorPane layoutX="14.0" prefHeight="523.0" prefWidth="886.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../guiadmin.css">
+                    <children>
+                        <Label layoutX="305.0" layoutY="6.0" text="Détails de l'Activité">
+                            <font>
+                                <Font name="System Bold" size="25.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="54.0" layoutY="40.0" text="Informations sur l'activité">
+                            <font>
+                                <Font name="System Bold" size="25.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Activity Image -->
+                        <ImageView fx:id="activityImage" fitHeight="200" fitWidth="200" layoutX="54.0" layoutY="79.0" preserveRatio="true" />
+
+                        <!-- Activity Name -->
+                        <Label fx:id="activityName" layoutX="300.0" layoutY="79.0" styleClass="activity-title" text="" />
+
+                        <!-- Activity Description -->
+                        <Label fx:id="activityDescription" layoutX="300.0" layoutY="120.0" styleClass="activity-description" text="" />
+
+                        <!-- Activity Price -->
+                        <Label fx:id="activityPrice" layoutX="300.0" layoutY="160.0" styleClass="activity-price" text="" />
+
+                        <Label fx:id="activitySessionsLabel" layoutX="298.0" layoutY="225.0" prefHeight="218.0" prefWidth="324.0" text="" wrapText="true">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                  <Button fx:id="subscribeButton" layoutX="312.0" layoutY="426.0" mnemonicParsing="false" onAction="#SubscribeToActivity" prefHeight="34.0" prefWidth="210.0" style="-fx-background-color: #B58D3F;" text="Commander cette produit" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+
+                    </children>
+                </AnchorPane>
+                <Label layoutX="54.0" layoutY="40.0">
+                    <font>
+                        <Font name="System Bold" size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+
+        <Label layoutX="372.0" layoutY="44.0">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

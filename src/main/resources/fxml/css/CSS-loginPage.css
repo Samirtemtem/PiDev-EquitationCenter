@@ -1,0 +1,109 @@
+.vbox_background_center {
+    -fx-background-color:   #355062;
+    -fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.5), 20.0, 0.0, 1.0, 3.0);
+    
+}
+
+.vbox_background_right {
+    -fx-background-color:   #637484; 
+  
+}
+.button {
+   -fx-background-color: #637484;
+    -fx-text-fill: white;
+    -fx-background-radius: 30.0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.3), 5.0, 0.0, 0.0, 1.0);
+    -fx-padding: 10.0 20.0 10.0 20.0;
+       -fx-font-weight: bold;
+}
+.icon {
+    -fx-text-fill: #355062;
+        -fx-fill: white;
+}
+
+.hyperlink {
+    -fx-text-fill: #FF5733; 
+}
+
+.logo-glowing {
+    -fx-effect: dropshadow(gaussian, rgba(99.0,116.0,132.0,0.7), 30.0, 0.0, 0.0, 0.0);
+}
+.anchor-pane {
+  -fx-background-color:
+        linear-gradient(from 100.0% 0.0% to 0.0% 0.0%, #637484, #355062);
+}
+.pane {
+    -fx-background-color: rgba(255.0, 255.0, 255.0, 0.5); /* Adjust the last value for transparency */
+    -fx-background-radius: 50.0;
+    -fx-border-color: rgba(255.0, 255.0, 255.0, 0.5); /* Add border with transparency */
+    -fx-border-radius: 50.0;
+    -fx-border-width: 2.0;
+    -fx-border-style: solid;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #637484, #355062);
+   
+}
+
+.outlined-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #2196F3; /* Border color */
+    -fx-border-width: 2.0px; /* Border width */
+    -fx-text-fill: #2196F3; /* Text color */
+    -fx-pref-width: 150.0px; /* Set preferred width */
+    -fx-pref-height: 40.0px; /* Set preferred height */
+    -fx-font-size: 16.0px; /* Set font size */
+    -fx-cursor: hand; /* Change cursor on hover */
+}
+
+.hyperlink {
+    -fx-font-size: 12.0px;
+    -fx-text-fill: #2196F3;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-underline: true; /* Display underline */
+    -fx-cursor: hand; /* Change cursor on hover */
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #FF5722; /* Change color on hover */
+}
+/* CSS-loginPage.css */
+
+/* Styling for MFXTextField */
+.mfx-text-field {
+    -mfx-prompt-text-fill: #B0BEC5; /* Color of the prompt text */
+    -mfx-highlight-fill: transparent; /* Color when focused */
+    -mfx-highlight-text-fill: #2196F3; /* Text color when focused */
+    -mfx-faint-focus-color: transparent; /* No focus ring */
+    -fx-background-color: #FAFAFA; /* Background color */
+    -fx-border-color: #B0BEC5; /* Border color */
+    -fx-border-width: 1.5; /* Border width */
+    -fx-text-fill: #000000; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Segoe UI"; /* Font family */
+}
+
+.mfx-text-field:focused {
+    -fx-border-color: #2196F3; /* Border color when focused */
+}
+
+.mfx-text-field > .mfx-label-float {
+    -mfx-float-text-fill: #2196F3; /* Floating text color */
+}
+
+.mfx-text-field > .mfx-float-container {
+    -mfx-float-cornerRadius: 4; /* Floating container corner radius */
+}
+
+.mfx-text-field > .mfx-text-field-icon > .mfx-icon {
+    -fx-fill: #2196F3; /* Icon color */
+}
+.mfx-text-field {
+
+    -mfx-prompt-text-fill: white; /* Floating text color */
+    -fx-text-fill: white;
+    -fx-background-color: rgba(211, 211, 211, 0.5); /* Semi-transparent light gray */
+
+}
