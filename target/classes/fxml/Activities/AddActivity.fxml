@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="970.0" style="-fx-background-color: #fbf3e4;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddActivityController">
+
+    <children>
+        <Pane layoutX="88.0" layoutY="14.0" prefHeight="578.0" prefWidth="812.0" style="-fx-background-radius: 15; -fx-background-color: white;">
+            <children>
+                <Label layoutX="203.0" layoutY="14.0" text="Ajouter une nouvelle activité">
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Label>
+
+                <Button fx:id="btnSignup" layoutX="348.0" layoutY="525.0" mnemonicParsing="false" onAction="#AddActivity" prefHeight="40.0" prefWidth="117.0" style="-fx-background-color: #4b3e3e; -fx-background-radius: 8;" text="Nouvelle Activité" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="Title" layoutX="84.0" layoutY="251.0" prefHeight="50.0" prefWidth="295.0" promptText="Entrez le titre" style="-fx-background-radius: 7;">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="Price" layoutX="432.0" layoutY="343.0" prefHeight="50.0" prefWidth="295.0" promptText="Entrez le prix" style="-fx-background-radius: 7;">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </TextField>
+                <Label fx:id="nomLabel" layoutX="92.0" layoutY="289.0" prefHeight="27.0" prefWidth="236.0" textFill="RED">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="prenomLabel" layoutX="443.0" layoutY="289.0" prefHeight="27.0" prefWidth="236.0" textFill="RED">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+
+                <Label fx:id="adresseLabel" layoutX="443.0" layoutY="393.0" prefHeight="27.0" prefWidth="236.0" textFill="RED">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="confirmPasswordLabel" layoutX="443.0" layoutY="488.0" prefHeight="27.0" prefWidth="285.0" textFill="RED">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="432.0" layoutY="214.0" prefHeight="50.0" prefWidth="295.0" style="-fx-background-radius: 5px;" text="Date">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+
+
+                <Label layoutX="92.0" layoutY="227.0" text="Titre">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+
+                <Label layoutX="443.0" layoutY="318.0" text="Prix">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <Label layoutX="89.0" layoutY="415.0" text="Description">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Label>
+                <DatePicker fx:id="Date" layoutX="432.0" layoutY="253.0" prefHeight="50.0" prefWidth="295.0" promptText="Date" />
+                <TextArea fx:id="Description" layoutX="84.0" layoutY="443.0" prefHeight="77.0" prefWidth="643.0" promptText="Entrez le description" style="-fx-background-radius: 7;">
+                    <font>
+                        <Font size="18.0" />
+                    </font></TextArea>
+
+                <!-- Button for uploading image -->
+                <Button fx:id="btnUploadImage" layoutX="88.0" layoutY="189.0" mnemonicParsing="false" onAction="#uploadImage" text="Ajouter Image" />
+
+                <!-- ImageView to display selected image -->
+                <ImageView fx:id="imageView" fitHeight="83.0" fitWidth="91.0" layoutX="88.0" layoutY="93.0" preserveRatio="true" />
+            <Label layoutX="92.0" layoutY="318.0" text="Type">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="Type" layoutX="92.0" layoutY="353.0" prefHeight="40.0" prefWidth="285.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <!-- Add more type options as needed -->
+                    </FXCollections>
+                </items>
+            </JFXComboBox>
+            <JFXComboBox fx:id="userComboBox" layoutX="679.0" layoutY="81.0" prefHeight="25.0" prefWidth="130.0" visible="false" />
+            <JFXComboBox fx:id="horseComboBox" layoutX="683.0" layoutY="141.0" prefHeight="25.0" prefWidth="117.0" visible="false" />
+            <Label layoutX="564.0" layoutY="70.0" prefHeight="50.0" prefWidth="102.0" style="-fx-background-radius: 5px;" text="Instructeur" visible="false">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Label layoutX="563.0" layoutY="128.0" prefHeight="50.0" prefWidth="109.0" style="-fx-background-radius: 5px;" text="Chéval" visible="false">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            </children>
+        </Pane>
+        <ImageView fx:id="btnReturn" fitHeight="44.0" fitWidth="48.0" layoutX="14.0" layoutY="20.0" onMouseClicked="#returnTo" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../assets/return.png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

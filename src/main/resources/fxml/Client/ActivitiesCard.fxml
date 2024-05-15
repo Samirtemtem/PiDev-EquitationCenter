@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ActivitiesCardController">
+    <stylesheets>
+        <URL value="@../guiadmin.css" />
+    </stylesheets>
+    <children>
+        <Pane layoutX="571.0" layoutY="12.0" prefHeight="94.0" prefWidth="394.0" style="-fx-background-radius: 20 20 0 0;" styleClass="linear-grad" stylesheets="@../guiadmin.css">
+            <children>
+                <ImageView fitHeight="76.0" fitWidth="58.0" layoutX="319.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../assets/ic_usr.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="adminNameLabel" layoutX="174.0" layoutY="17.0" text="Client" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="222.0" layoutY="45.0" onMouseClicked="#goToLogn" text="Déconnecter" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="36.0" fitWidth="28.0" layoutX="192.0" layoutY="41.0" onMouseClicked="#goToLogn" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../assets/logOut.png" />
+                    </image>
+                </ImageView>
+            <Text fill="#df1515" layoutX="154.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RM" />
+            <Text fill="#df1515" layoutX="366.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RM" />
+            </children>
+        </Pane>
+        <fx:include source="navbar.fxml"/>
+        <ImageView fitHeight="86.0" fitWidth="154.0" layoutX="74.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../assets/logo.png" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="75.0" layoutY="93.0" prefHeight="523.0" prefWidth="886.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" stylesheets="@../guiadmin.css">
+            <children>
+                <Label layoutX="305.0" layoutY="6.0" text="Interface Client">
+                    <font>
+                        <Font name="System Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label layoutX="54.0" layoutY="40.0" text="Oú voulez-vous allez ?">
+                    <font>
+                        <Font name="System Bold" size="25.0" />
+                    </font>
+                </Label>
+            <JFXButton fx:id="ActivityName" contentDisplay="TOP" layoutX="72.0" layoutY="76.0" prefHeight="177.0" prefWidth="224.0" text="Fresh Rose Deep Hydration Cream ">
+               <graphic>
+                  <ImageView fx:id="imageActivity" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </JFXButton>
+            <Text fx:id="price" fill="#ff0404" fontSmoothingType="LCD" layoutX="155.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="151.70" wrappingWidth="72.91680908203125">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
