@@ -26,7 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import nl.captcha.Captcha;
 import javafx.embed.swing.SwingFXUtils;
-import org.mindrot.jbcrypt.BCrypt;
+
 
 /**
  * FXML Controller class
@@ -89,8 +89,8 @@ public class GuiLoginController implements Initializable {
 
         String email = emailInput.getText();
         String password = passwordInput.getText();
-      String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        user = su.login(email, hashedPassword);
+     // String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        user = su.login(email, password);
         if (captcha.isCorrect(captchaField.getText())) {
             captchaTest = true;
 

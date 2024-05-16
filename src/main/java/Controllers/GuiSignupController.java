@@ -202,9 +202,9 @@ public class GuiSignupController implements Initializable {
             user.setAddress(addres);
             user.setNum_tel(Num_tel);
             user.setEmail(email);
-          user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+         // user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
            // user.setPassword(BCrypt.hashpw(Password.getText(),BCrypt.gensalt()));
-           // user.setPassword(password);
+             user.setPassword(password);
             user.setImageData(imageData);
             user.setRoles("[\"ROLE_CLIENT\"]");
             serviceUser.add(user);

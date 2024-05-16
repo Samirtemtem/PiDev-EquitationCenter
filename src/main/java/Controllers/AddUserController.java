@@ -26,7 +26,8 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import org.mindrot.jbcrypt.BCrypt;
+
+
 public class AddUserController implements Initializable {
 
     @FXML
@@ -219,7 +220,8 @@ public class AddUserController implements Initializable {
             user.setAddress(addres);
             user.setNum_tel(Num_tel);
             user.setEmail(email);
-            user.setPassword(BCrypt.hashpw(Password.getText(),BCrypt.gensalt()));
+            user.setPassword(password);
+            //user.setPassword(BCrypt.hashpw(Password.getText(),BCrypt.gensalt()));
             user.setImageData(imageData);
 
             serviceUser.add(user);

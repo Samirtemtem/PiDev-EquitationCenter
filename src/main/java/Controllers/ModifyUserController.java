@@ -153,6 +153,10 @@ public class ModifyUserController implements Initializable,InitializableControll
             showAlert("Le mot de passe doit contenir au moins 8 caractères");
             return false;
         }
+        if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")) {
+            showAlert("Le mot de passe doit contenir au moins 8 caractères avec au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.");
+            return false;
+        }
         if (confirmpass.getText().isEmpty()) {
             showAlert("La confirmation du mot de passe est requise");
             return false;

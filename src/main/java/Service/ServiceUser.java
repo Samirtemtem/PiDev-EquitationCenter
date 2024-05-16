@@ -6,7 +6,7 @@ import Utils.Datasource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
 public class ServiceUser implements IService<Users> {
     private Connection connection = Datasource.getConn();
    // PassSecurity ps =new PassSecurity();
@@ -26,8 +26,9 @@ public class ServiceUser implements IService<Users> {
         String query = "INSERT INTO users (email,password, name,lastname,address,num_tel,dateJoined, roles,ImageData) VALUES (?,?, ?, ?,?,?,?,?,?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, user.getEmail());
+            String encryptedPassword = encrypt(user.getPassword());
            // String hashedPassword = ps.hashPassword(user.getPassword(), salt);
-            statement.setString(2, user.getPassword());
+            statement.setString(2, encryptedPassword);
           //  statement.setBytes(3, salt);
             statement.setString(3, user.getName());
             statement.setString(4, user.getLastName());
@@ -131,13 +132,15 @@ public class ServiceUser implements IService<Users> {
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                String storedPassword = resultSet.getString("password");
+                BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), storedPassword);
                // byte[] salt = resultSet.getBytes("salt");
              //   String hashedPassword = resultSet.getString("hash");
               //  if (ps.validatePassword(password, hashedPassword, salt)) {
                     user = new Users();
                     user.setId(resultSet.getInt("id"));
                     user.setEmail(resultSet.getString("email"));
-                    user.setPassword(resultSet.getString("password"));
+                 //   user.setPassword(resultSet.getString("password"));
                     user.setName(resultSet.getString("name"));
                     user.setLastName(resultSet.getString("lastname"));
                 //    user.setRoles(Users.Roles.valueOf(resultSet.getString("roles")));
@@ -147,6 +150,12 @@ public class ServiceUser implements IService<Users> {
             }
             return null; // No user found with the given email, password, and role
         }
+
+    public static String encrypt(String password) {
+        int costFactor = 13;
+        char[] bcryptChars = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToChar(costFactor, password.toCharArray());
+        return new String(bcryptChars);
+    }
 
 
     public List<Users> ReadInstructors() throws SQLException {
